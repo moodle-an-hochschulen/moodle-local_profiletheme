@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Main class for matching up users with themes
+ * Local plugin "Profile theme" - Main class for matching up users with themes
  *
  * @package   local_profiletheme
- * @copyright 2016 Davo Smith, Synergy Learning
+ * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
