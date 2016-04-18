@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local plugin "Profile theme" - Form to edit the profile field rules
+ * Local plugin "Profile field based theme delivery" - Form to edit the profile field rules
  *
  * @package   local_profiletheme
  * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>

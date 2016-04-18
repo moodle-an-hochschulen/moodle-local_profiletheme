@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local plugin "Profile theme" - Handles menu field types
+ * Local plugin "Profile field based theme delivery" - Handles menu field types
  *
  * @package   local_profiletheme
  * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>

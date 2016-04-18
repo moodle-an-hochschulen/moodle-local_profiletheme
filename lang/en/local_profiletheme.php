@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local plugin "Profile theme" - Language pack
+ * Local plugin "Profile field based theme delivery" - Language pack
  *
  * @package   local_profiletheme
  * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>
@@ -34,5 +34,5 @@ $string['match_exact'] = 'Matches';
 $string['matchtype'] = 'Match type';
 $string['matchvalue'] = 'Match value';
 $string['nofields'] = 'No custom profile fields have been defined';
-$string['pluginname'] = 'Profile field theme selection';
+$string['pluginname'] = 'Profile field based theme delivery';
 $string['selectvalue'] = 'the user will get theme';
