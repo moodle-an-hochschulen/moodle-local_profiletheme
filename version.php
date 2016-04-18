@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information
+ * Local plugin "Profile theme" - Version information
  *
  * @package   local_profiletheme
- * @copyright 2016 Davo Smith, Synergy Learning
+ * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016021701;
-$plugin->requires  = 2015051100; // Moodle 2.9+.
 $plugin->component = 'local_profiletheme';
-$plugin->maturity  = MATURITY_BETA;
-$plugin->release   = '2.9+ (Build: 2016021701)';
+$plugin->version = 2016041800;
+$plugin->release = 'v3.0-r1';
+$plugin->requires = 2015111600;
+$plugin->maturity = MATURITY_STABLE;
