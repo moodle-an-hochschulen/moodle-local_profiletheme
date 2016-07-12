@@ -52,6 +52,9 @@ abstract class field_base {
     protected static $fields = ['id', 'fieldid', 'matchtype', 'matchvalue', 'value'];
     protected static $extrafields = ['name', 'param1'];
 
+    const MATCH_ISDEFINED = '!!defined!!';
+    const MATCH_NOTDEFINED = '!!notdefined!!';
+    
     /**
      * Creates a new instance of a rule to hold the given data.
      * Returns null for any datatypes that are unsupported by rules.
@@ -122,7 +125,7 @@ abstract class field_base {
                 continue;
             }
             $values = $formdata->$field;
-            if (!isset($values[$id])) {
+            if (!array_key_exists($id, $values)) {
                 continue;
             }
             if ($this->$field != $values[$id]) {
@@ -206,9 +209,15 @@ abstract class field_base {
      */
     public function get_value($fields) {
         if (isset($fields[$this->fieldid])) {
-            if ($this->matches_internal($fields[$this->fieldid])) {
+            if ($this->matchtype == self::MATCH_ISDEFINED) {
                 return $this->value;
+            } else if ($this->matchtype != self::MATCH_NOTDEFINED) {
+                if ($this->matches_internal($fields[$this->fieldid])) {
+                    return $this->value;
+                }
             }
+        } else if ($this->matchtype == self::MATCH_NOTDEFINED) {
+            return $this->value;
         }
         return null;
     }

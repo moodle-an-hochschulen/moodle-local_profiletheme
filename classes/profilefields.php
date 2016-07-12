@@ -160,9 +160,7 @@ abstract class profilefields {
         if (!$rules = self::load_rules()) {
             return $ret;
         }
-        if (!$fields = self::load_profile_fields($rules, $userid)) {
-            return $ret;
-        }
+        $fields = self::load_profile_fields($rules, $userid);
 
         // Check the user profile fields against each of the rules.
         foreach ($rules as $rule) {

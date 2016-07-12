@@ -30,7 +30,9 @@ $string['iffield'] = 'If {$a}';
 $string['intro'] = 'Use this form to define mappings between user custom profile fields and the theme that will be delivered to that user.<br>
 Rules are processed in the order that they are displayed - the first matching rule will be used.';
 $string['match_contains'] = 'Contains';
+$string['match_defined'] = 'Is defined';
 $string['match_exact'] = 'Matches';
+$string['match_notdefined'] = 'Is not defined';
 $string['matchtype'] = 'Match type';
 $string['matchvalue'] = 'Match value';
 $string['nofields'] = 'No custom profile fields have been defined';
