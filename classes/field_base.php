@@ -45,16 +45,19 @@ abstract class field_base {
     protected $matchtype = null;
     protected $matchvalue = null;
     protected $value = null;
+    protected $sortorder = null;
     // Extra fields from user_info_field table.
     protected $name = null;
     protected $param1 = null;
 
-    protected static $fields = ['id', 'fieldid', 'matchtype', 'matchvalue', 'value'];
+    protected $formposition = null;
+
+    protected static $fields = ['id', 'fieldid', 'matchtype', 'matchvalue', 'value', 'sortorder'];
     protected static $extrafields = ['name', 'param1'];
 
     const MATCH_ISDEFINED = '!!defined!!';
     const MATCH_NOTDEFINED = '!!notdefined!!';
-    
+
     /**
      * Creates a new instance of a rule to hold the given data.
      * Returns null for any datatypes that are unsupported by rules.
@@ -87,6 +90,37 @@ abstract class field_base {
                 }
             }
         }
+    }
+
+    /**
+     * The position on the form that this rule is currently being displayed at.
+     * @param int $position
+     */
+    public function set_form_position($position) {
+        $this->formposition = $position;
+    }
+
+    /**
+     * Get the new position that the user has requested for this rule.
+     * @param object $formdata the data returned by the form
+     * @return array [$dir, $newposition] where $dir is 0, -1, +1 for unchanged, moved up, moved down
+     */
+    public function get_new_position($formdata) {
+        $id = $this->get_form_id();
+        if (!empty($formdata->delete[$id])) {
+            return [0, $this->formposition];
+        }
+        if (!isset($formdata->moveto[$id])) {
+            return [0, $this->formposition];
+        }
+        $moveto = $formdata->moveto[$id];
+        $dir = 0;
+        if ($moveto < $this->formposition) {
+            $dir = -1;
+        } else if ($moveto > $this->formposition) {
+            $dir = 1;
+        }
+        return [$dir, $moveto];
     }
 
     /**
@@ -235,8 +269,9 @@ abstract class field_base {
      * Add the fields needed to edit this rule.
      * @param MoodleQuickForm $mform
      * @param array $values the full list of values this could be mapped onto
+     * @param int $rulecount
      */
-    public function add_form_field(MoodleQuickForm $mform, $values) {
+    public function add_form_field(MoodleQuickForm $mform, $values, $rulecount) {
         $id = $this->get_form_id();
         $mform->addElement('hidden', "fieldid[$id]", $this->fieldid);
         $mform->setType("fieldid[$id]", PARAM_INT);
@@ -245,8 +280,19 @@ abstract class field_base {
         $group[] = $mform->createElement('static', "valuelabel[$id]", '', get_string('selectvalue', 'local_profiletheme'));
         $group[] = $mform->createElement('select', "value[$id]", get_string('selectvalue', 'local_profiletheme'), $values);
         $mform->setDefault("value[$id]", $this->value);
+
         if ($this->id) {
+            $group[] = $mform->createElement('static', '', '', '<br><span class="localprofile-rule-actions">');
+            if ($rulecount > 1) {
+                $moveopts = range(1, $rulecount);
+                $moveopts = array_combine($moveopts, $moveopts);
+                $group[] = $mform->createElement('static', "movelabel[$id]", '', get_string('moveto', 'local_profiletheme'));
+                $group[] = $mform->createElement('select', "moveto[$id]", get_string('moveto', 'local_profiletheme'), $moveopts);
+                $mform->setDefault("moveto[$id]", $this->formposition);
+            }
+
             $group[] = $mform->createElement('advcheckbox', "delete[$id]", '', get_string('delete', 'local_profiletheme'));
+            $group[] = $mform->createElement('static', '', '', '</span>');
         }
 
         $name = get_string('iffield', 'local_profiletheme', format_string($this->name));

@@ -38,6 +38,7 @@ $string['match_notdefined'] = 'Is not defined';
 $string['match_notexact'] = 'Does not match';
 $string['matchtype'] = 'Match type';
 $string['matchvalue'] = 'Match value';
+$string['moveto'] = 'Move to position';
 $string['nofields'] = 'No custom profile fields have been defined';
 $string['pluginname'] = 'Profile field based theme delivery';
 $string['selectvalue'] = 'the user will get theme';

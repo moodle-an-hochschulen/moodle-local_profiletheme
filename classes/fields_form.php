@@ -62,8 +62,9 @@ class fields_form extends moodleform {
         $mform->setType('action', PARAM_ALPHA);
 
         $values = [null => get_string('choosedots')] + $this->get_values();
-        foreach ($this->get_rules() as $rule) {
-            $rule->add_form_field($mform, $values);
+        $rules = $this->get_rules();
+        foreach ($rules as $rule) {
+            $rule->add_form_field($mform, $values, count($rules));
         }
         $this->add_action_buttons();
     }

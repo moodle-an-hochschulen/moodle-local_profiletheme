@@ -80,6 +80,11 @@ abstract class profilefields {
             $rules = $this->get_rules();
             if (!$rules) {
                 $this->action = 'add';
+            } else {
+                $i = 1;
+                foreach ($rules as $rule) {
+                    $rule->set_form_position($i++);
+                }
             }
         }
 
@@ -111,7 +116,7 @@ abstract class profilefields {
             redirect($PAGE->url);
         }
         if ($formdata = $this->form->get_data()) {
-            $changed = false;
+            $changed = $this->figure_out_sortorder($rules, $formdata);
             foreach ($rules as $idx => $rule) {
                 $changed = $rule->update_from_form_data(static::$tablename, $formdata) || $changed;
             }
@@ -121,6 +126,56 @@ abstract class profilefields {
             // Always return to the 'view rules' tab when a rule has been saved successfully.
             redirect(new \moodle_url($PAGE->url, ['action' => 'view']));
         }
+    }
+
+    /**
+     * Look to see if any of the rules have moved up or down, then rewrite the sort order, as needed.
+     * New sortorder is stored in the $formdata, to be applied by $rule->update_from_form_data()
+     *
+     * @param field_base[] $rules
+     * @param $formdata
+     * @return bool true if there were any changes made
+     */
+    protected function figure_out_sortorder($rules, $formdata) {
+        // Get list of rules that have moved up / down / stayed put.
+        $positions = range(1, count($rules));
+        $unchanged = array_fill_keys($positions, []);
+        $movedup = array_fill_keys($positions, []);
+        $moveddown = array_fill_keys($positions, []);
+
+        $changed = false;
+        foreach ($rules as $rule) {
+            list($dir, $position) = $rule->get_new_position($formdata);
+            if ($dir == 0) {
+                $unchanged[$position][] = $rule;
+            } else if ($dir < 0) {
+                $movedup[$position][] = $rule;
+                $changed = true;
+            } else {
+                $moveddown[$position][] = $rule;
+                $changed = true;
+            }
+        }
+        if (!$changed) {
+            return false;
+        }
+
+        $sortorder = 1;
+        $formdata->sortorder = [];
+        for ($i = 1; $i <= count($rules); $i++) {
+            // If there is more than one entry in any given position, order them by:
+            // those that have moved up, then those that are unchanged, then those that have moved down.
+            foreach ($movedup[$i] as $rule) {
+                $formdata->sortorder[$rule->id] = $sortorder++;
+            }
+            foreach ($unchanged[$i] as $rule) {
+                $formdata->sortorder[$rule->id] = $sortorder++;
+            }
+            foreach ($moveddown[$i] as $rule) {
+                $formdata->sortorder[$rule->id] = $sortorder++;
+            }
+        }
+        return true;
     }
 
     /**
