@@ -43,14 +43,26 @@ abstract class profilefields {
     protected $possiblevalues = null;
     /** @var moodleform */
     protected $form = null;
+    /** @var string */
+    protected $action = 'view';
+
+    protected static $actions = ['view', 'add'];
 
     /**
      * profilefields constructor.
      */
     public function __construct() {
+        global $PAGE;
+
         if (!static::$tablename) {
             throw new \coding_exception('Must set $tablename in derived classes');
         }
+        $this->action = optional_param('action', null, PARAM_ALPHA);
+        if (!in_array($this->action, static::$actions)) {
+            $this->action = 'view';
+        }
+        $url = new \moodle_url($PAGE->url, ['action' => $this->action]);
+        $PAGE->set_url($url);
     }
 
     // ------------------------------------------
@@ -62,13 +74,23 @@ abstract class profilefields {
      */
     public function process_form() {
         global $DB, $PAGE;
-        $rules = $this->get_rules();
 
-        // Add a new, empty, rule to the end of the list, if requested.
-        if ($addid = optional_param('add', null, PARAM_INT)) {
-            $field = $DB->get_record('user_info_field', array('id' => $addid), 'id AS fieldid, name, datatype, param1', MUST_EXIST);
-            if ($rule = field_base::make_instance($field)) {
-                $rules[] = $rule;
+        $rules = [];
+        if ($this->action == 'view') {
+            $rules = $this->get_rules();
+            if (!$rules) {
+                $this->action = 'add';
+            }
+        }
+
+        $addid = null;
+        if ($this->action == 'add') {
+            // Add a new, empty, rule to the end of the list, if requested.
+            if ($addid = optional_param('add', null, PARAM_INT)) {
+                $field = $DB->get_record('user_info_field', array('id' => $addid), 'id AS fieldid, name, datatype, param1', MUST_EXIST);
+                if ($rule = field_base::make_instance($field)) {
+                    $rules[] = $rule;
+                }
             }
         }
 
@@ -78,9 +100,11 @@ abstract class profilefields {
             'values' => $this->get_possible_values()
         ];
         $this->form = new fields_form(null, $custom);
+        $toform = ['action' => $this->action];
         if ($addid) {
-            $this->form->set_data(['add' => $addid]);
+            $toform['add'] = $addid;
         }
+        $this->form->set_data($toform);
 
         // Process the form data.
         if ($this->form->is_cancelled()) {
@@ -94,7 +118,8 @@ abstract class profilefields {
             if ($changed) {
                 $this->apply_all_rules();
             }
-            redirect($PAGE->url);
+            // Always return to the 'view rules' tab when a rule has been saved successfully.
+            redirect(new \moodle_url($PAGE->url, ['action' => 'view']));
         }
     }
 
@@ -103,14 +128,39 @@ abstract class profilefields {
      * @return string
      */
     public function output_form() {
+        global $OUTPUT;
         $out = '';
 
         if (!$this->get_possible_fields()) {
             return get_string('nofields', 'local_profiletheme');
         }
+
+        $tabs = $this->get_tabs();
+        $out .= $OUTPUT->render($tabs);
+
+        if ($this->action == 'add') {
+            $out .= $this->output_add_select();
+        }
         $out .= $this->output_rules();
-        $out .= $this->output_add_select();
         return $out;
+    }
+
+    /**
+     * Generate tabs for the display
+     * @return \tabtree
+     */
+    protected function get_tabs() {
+        global $PAGE;
+
+        $tabs = [];
+        $tabs[] = new \tabobject('view', new \moodle_url($PAGE->url, ['action' => 'view']),
+                                 get_string('viewrules', 'local_profiletheme'));
+        $tabs[] = new \tabobject('add', new \moodle_url($PAGE->url, ['action' => 'add']),
+                                 get_string('addrules', 'local_profiletheme'));
+
+        $tabtree = new \tabtree($tabs, $this->action);
+
+        return $tabtree;
     }
 
     /**
