@@ -32,7 +32,9 @@ Rules are processed in the order that they are displayed - the first matching ru
 $string['match_contains'] = 'Contains';
 $string['match_defined'] = 'Is defined';
 $string['match_exact'] = 'Matches';
+$string['match_notcontains'] = 'Does not contain';
 $string['match_notdefined'] = 'Is not defined';
+$string['match_notexact'] = 'Does not match';
 $string['matchtype'] = 'Match type';
 $string['matchvalue'] = 'Match value';
 $string['nofields'] = 'No custom profile fields have been defined';

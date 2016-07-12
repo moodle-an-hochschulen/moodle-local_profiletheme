@@ -35,8 +35,14 @@ defined('MOODLE_INTERNAL') || die();
 class field_text extends field_base {
     const MATCH_EXACT = 'exact';
     const MATCH_CONTAINS = 'contains';
+    const MATCH_NOTEXACT = 'notexact';
+    const MATCH_NOTCONTAINS = 'notcontains';
 
-    protected static $matchtypes = [self::MATCH_EXACT, self::MATCH_CONTAINS, self::MATCH_ISDEFINED, self::MATCH_NOTDEFINED];
+    protected static $matchtypes = [
+        self::MATCH_EXACT, self::MATCH_CONTAINS,
+        self::MATCH_NOTEXACT, self::MATCH_NOTCONTAINS,
+        self::MATCH_ISDEFINED, self::MATCH_NOTDEFINED
+    ];
 
     /**
      * field_text constructor.
@@ -57,10 +63,17 @@ class field_text extends field_base {
     protected function matches_internal($value) {
         $value = strtolower(trim(strip_tags($value)));
         $matchvalue = strtolower(trim($this->matchvalue));
-        if ($this->matchtype == self::MATCH_EXACT) {
-            return ($value == $matchvalue);
+        switch ($this->matchtype) {
+            case self::MATCH_NOTEXACT:
+                return ($value != $matchvalue);
+            case self::MATCH_CONTAINS:
+                return (strpos($value, $matchvalue) !== false);
+            case self::MATCH_NOTCONTAINS:
+                return (strpos($value, $matchvalue) === false);
+            case self::MATCH_EXACT:
+            default:
+                return ($value == $matchvalue);
         }
-        return (strpos($value, $matchvalue) !== false);
     }
 
     /**
