@@ -88,7 +88,7 @@ class field_text extends field_base {
             $matchopts[$matchtype] = get_string($strmatchtype, 'local_profiletheme');
         }
         $type = $mform->createElement('select', "matchtype[$id]", get_string('matchtype', 'local_profiletheme'), $matchopts);
-        $mform->setType("matchtype[$id]", PARAM_ALPHA);
+        $mform->setType("matchtype[$id]", PARAM_TEXT);
         $mform->setDefault("matchtype[$id]", $this->matchtype);
 
         $match = $mform->createElement('text', "matchvalue[$id]", get_string('matchvalue', 'local_profiletheme'));
