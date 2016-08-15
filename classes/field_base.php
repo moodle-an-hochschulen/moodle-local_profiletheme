@@ -289,13 +289,15 @@ abstract class field_base {
                 $group[] = $mform->createElement('static', "movelabel[$id]", '', get_string('moveto', 'local_profiletheme'));
                 $group[] = $mform->createElement('select', "moveto[$id]", get_string('moveto', 'local_profiletheme'), $moveopts);
                 $mform->setDefault("moveto[$id]", $this->formposition);
+                $group[] = $mform->createElement('static', '', '', '<br>');
             }
 
             $group[] = $mform->createElement('advcheckbox', "delete[$id]", '', get_string('delete', 'local_profiletheme'));
             $group[] = $mform->createElement('static', '', '', '</span>');
         }
 
-        $name = get_string('iffield', 'local_profiletheme', format_string($this->name));
+        $prefix = $this->formposition.'. ';
+        $name = $prefix.get_string('iffield', 'local_profiletheme', format_string($this->name));
         $mform->addGroup($group, "group-$id", $name, ' ', false);
     }
 
