@@ -281,22 +281,25 @@ abstract class field_base {
         $group[] = $mform->createElement('select', "value[$id]", get_string('selectvalue', 'local_profiletheme'), $values);
         $mform->setDefault("value[$id]", $this->value);
 
+        $prefix = '';
         if ($this->id) {
             $group[] = $mform->createElement('static', '', '', '<br><span class="localprofile-rule-actions">');
             if ($rulecount > 1) {
                 $moveopts = range(1, $rulecount);
                 $moveopts = array_combine($moveopts, $moveopts);
                 $group[] = $mform->createElement('static', "movelabel[$id]", '', get_string('moveto', 'local_profiletheme'));
-                $group[] = $mform->createElement('select', "moveto[$id]", get_string('moveto', 'local_profiletheme'), $moveopts);
+                $group[] = $mform->createElement('select', "moveto[$id]", get_string('moveto', 'local_profiletheme'), $moveopts,
+                                                 ['class' => 'moveto']);
                 $mform->setDefault("moveto[$id]", $this->formposition);
                 $group[] = $mform->createElement('static', '', '', '<br>');
             }
 
             $group[] = $mform->createElement('advcheckbox', "delete[$id]", '', get_string('delete', 'local_profiletheme'));
             $group[] = $mform->createElement('static', '', '', '</span>');
+
+            $prefix = '<span class="localprofile-number">'.$this->formposition.'</span>. ';
         }
 
-        $prefix = $this->formposition.'. ';
         $name = $prefix.get_string('iffield', 'local_profiletheme', format_string($this->name));
         $mform->addGroup($group, "group-$id", $name, ' ', false);
     }

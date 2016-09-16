@@ -54,6 +54,8 @@ class fields_form extends moodleform {
      * Form definition. Abstract method - always override!
      */
     protected function definition() {
+        global $PAGE;
+
         $mform = $this->_form;
 
         $mform->addElement('hidden', 'add', null);
@@ -67,6 +69,8 @@ class fields_form extends moodleform {
             $rule->add_form_field($mform, $values, count($rules));
         }
         $this->add_action_buttons();
+
+        $PAGE->requires->js_call_amd('local_profiletheme/reorder', 'init');
     }
 
     /**

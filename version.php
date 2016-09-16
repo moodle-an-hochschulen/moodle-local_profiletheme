@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_profiletheme';
-$plugin->version = 2016071200;
+$plugin->version = 2016091600;
 $plugin->release = 'v3.0-r1';
 $plugin->requires = 2015111600;
 $plugin->maturity = MATURITY_STABLE;
