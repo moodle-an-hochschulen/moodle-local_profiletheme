@@ -25,14 +25,21 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['addrule'] = 'Add rule for custom profile field ...';
+$string['addrules'] = 'Add new rule';
 $string['delete'] = 'Delete this rule';
 $string['iffield'] = 'If {$a}';
 $string['intro'] = 'Use this form to define mappings between user custom profile fields and the theme that will be delivered to that user.<br>
 Rules are processed in the order that they are displayed - the first matching rule will be used.';
 $string['match_contains'] = 'Contains';
+$string['match_defined'] = 'Is defined';
 $string['match_exact'] = 'Matches';
+$string['match_notcontains'] = 'Does not contain';
+$string['match_notdefined'] = 'Is not defined';
+$string['match_notexact'] = 'Does not match';
 $string['matchtype'] = 'Match type';
 $string['matchvalue'] = 'Match value';
+$string['moveto'] = 'Move to position';
 $string['nofields'] = 'No custom profile fields have been defined';
 $string['pluginname'] = 'Profile field based theme delivery';
 $string['selectvalue'] = 'the user will get theme';
+$string['viewrules'] = 'View / edit rules';
