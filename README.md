@@ -13,6 +13,7 @@ This plugin requires Moodle 3.0+
 Changes
 -------
 
+* 2016-09-20 - Add several features before publishing the plugin in the Moodle plugin repo
 * 2016-04-18 - Initial version
 
 
