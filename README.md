@@ -7,7 +7,7 @@ Moodle plugin which lets admins deliver a certain theme based on a user's profil
 Requirements
 ------------
 
-This plugin requires Moodle 3.0+
+This plugin requires Moodle 3.2+
 
 
 Installation
