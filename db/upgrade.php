@@ -41,5 +41,20 @@ function xmldb_local_profiletheme_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2016071200, 'local', 'profiletheme');
     }
 
+    if ($oldversion < 2017042700) {
+
+        // Define field andnextrule to be added to local_profilecohort.
+        $table = new xmldb_table('local_profiletheme');
+        $field = new xmldb_field('andnextrule', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'sortorder');
+
+        // Conditionally launch add field andnextrule.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Profilecohort savepoint reached.
+        upgrade_plugin_savepoint(true, 2017042700, 'local', 'profiletheme');
+    }
+
     return true;
 }

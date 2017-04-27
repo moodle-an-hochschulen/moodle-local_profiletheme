@@ -24,6 +24,7 @@
 
 namespace local_profiletheme;
 
+use html_writer;
 use MoodleQuickForm;
 use stdClass;
 
@@ -46,13 +47,14 @@ abstract class field_base {
     protected $matchvalue = null;
     protected $value = null;
     protected $sortorder = null;
+    protected $andnextrule = 0;
     // Extra fields from user_info_field table.
     protected $name = null;
     protected $param1 = null;
 
     protected $formposition = null;
 
-    protected static $fields = ['id', 'fieldid', 'matchtype', 'matchvalue', 'value', 'sortorder'];
+    protected static $fields = ['id', 'fieldid', 'matchtype', 'matchvalue', 'value', 'sortorder', 'andnextrule'];
     protected static $extrafields = ['name', 'param1'];
 
     const MATCH_ISDEFINED = '!!defined!!';
@@ -237,21 +239,29 @@ abstract class field_base {
         $this->$name = $value;
     }
 
+    public function should_and_next_field() {
+        return (bool)$this->andnextrule;
+    }
+
+    public function matches($fields) {
+        if (isset($fields[$this->fieldid])) {
+            if ($this->matchtype == self::MATCH_ISDEFINED) {
+                return true;
+            } else if ($this->matchtype == self::MATCH_NOTDEFINED) {
+                return false;
+            }
+            return $this->matches_internal($fields[$this->fieldid]);
+        }
+        return ($this->matchtype == self::MATCH_NOTDEFINED);
+    }
+
     /**
      * Check if the given profile fields cause this rule to match
      * @param string[] $fields $fieldid => $fieldvalue
      * @return null|string
      */
     public function get_value($fields) {
-        if (isset($fields[$this->fieldid])) {
-            if ($this->matchtype == self::MATCH_ISDEFINED) {
-                return $this->value;
-            } else if ($this->matchtype != self::MATCH_NOTDEFINED) {
-                if ($this->matches_internal($fields[$this->fieldid])) {
-                    return $this->value;
-                }
-            }
-        } else if ($this->matchtype == self::MATCH_NOTDEFINED) {
+        if ($this->matches($fields)) {
             return $this->value;
         }
         return null;
@@ -278,8 +288,10 @@ abstract class field_base {
         $mform->setType("fieldid[$id]", PARAM_INT);
 
         $group = $this->add_form_field_internal($mform, $id);
-        $group[] = $mform->createElement('static', "valuelabel[$id]", '', get_string('selectvalue', 'local_profiletheme'));
-        $group[] = $mform->createElement('select', "value[$id]", get_string('selectvalue', 'local_profiletheme'), $values);
+        $valuelabel = html_writer::span(get_string('selectvalue', 'local_profiletheme'), 'localprofile-value');
+        $group[] = $mform->createElement('static', "valuelabel[$id]", '', $valuelabel);
+        $group[] = $mform->createElement('select', "value[$id]", get_string('selectvalue', 'local_profiletheme'), $values,
+                                         ['class' => 'localprofile-value']);
         $mform->setDefault("value[$id]", $this->value);
 
         $prefix = '';
@@ -293,16 +305,24 @@ abstract class field_base {
                                                  ['class' => 'moveto']);
                 $mform->setDefault("moveto[$id]", $this->formposition);
                 $group[] = $mform->createElement('static', '', '', '<br>');
+
+                $group[] = $mform->createElement('advcheckbox', "andnextrule[$id]", '',
+                                                 get_string('andnextrule', 'local_profiletheme'), ['class' => 'andnextrule']);
+                $mform->setDefault("andnextrule[$id]", $this->andnextrule);
+                $group[] = $mform->createElement('static', '', '', '<br>');
             }
 
-            $group[] = $mform->createElement('advcheckbox', "delete[$id]", '', get_string('delete', 'local_profiletheme'));
+            $group[] = $mform->createElement('advcheckbox', "delete[$id]", '', get_string('delete', 'local_profiletheme'),
+                                             ['class' => 'deleterule']);
             $group[] = $mform->createElement('static', '', '', '</span>');
 
             $prefix = '<span class="localprofile-number">'.$this->formposition.'</span>. ';
         }
 
         $name = $prefix.get_string('iffield', 'local_profiletheme', format_string($this->name));
+        $mform->addElement('html', '<div class="localprofile-fieldwrapper">');
         $mform->addGroup($group, "group-$id", $name, ' ', false);
+        $mform->addElement('html', '</div>');
     }
 
     /**
