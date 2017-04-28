@@ -31,7 +31,7 @@ require_once(__DIR__.'/../../../../lib/behat/behat_base.php');
  */
 class behat_local_profiletheme extends behat_base {
     /**
-     * @Given /^the following custom user profile fields exist:$/
+     * @Given /^the following custom user profile fields exist (local_profiletheme):$/
      * @param TableNode $table
      * @throws Exception
      */

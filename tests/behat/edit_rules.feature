@@ -2,7 +2,7 @@
 Feature: Edit rules based on profile fields
 
   Background:
-    Given the following custom user profile fields exist:
+    Given the following custom user profile fields exist (local_profiletheme):
       | shortname     | name            | datatype | param1           |
       | checkboxfield | Checkbox field  | checkbox |                  |
       | menufield     | Menu field      | menu     | Opt1, Opt2, Opt3 |
