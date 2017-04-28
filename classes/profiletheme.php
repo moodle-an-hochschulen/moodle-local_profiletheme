@@ -44,7 +44,6 @@ class profiletheme extends profilefields {
      */
     public function output_form() {
         $out = '';
-        $out .= html_writer::tag('div', get_string('intro', 'local_profiletheme'), array('id' => 'intro', 'class' => 'box generalbox'));
         $out .= parent::output_form();
         return $out;
     }

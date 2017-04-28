@@ -186,14 +186,23 @@ abstract class profilefields {
      */
     public function output_form() {
         global $OUTPUT;
+
         $out = '';
+
+        $tabs = $this->get_tabs();
+        $out .= $OUTPUT->render($tabs);
+
+        if ($this->action == 'view') {
+            $out .= \html_writer::tag('div', get_string('viewintro', 'local_profiletheme'),
+                                     array('id' => 'intro', 'class' => 'box generalbox'));
+        } else if ($this->action == 'add') {
+            $out .= \html_writer::tag('div', get_string('addintro', 'local_profiletheme'),
+                                     array('id' => 'intro', 'class' => 'box generalbox'));
+        }
 
         if (!$this->get_possible_fields()) {
             return get_string('nofields', 'local_profiletheme');
         }
-
-        $tabs = $this->get_tabs();
-        $out .= $OUTPUT->render($tabs);
 
         if ($this->action == 'add') {
             $out .= $this->output_add_select();
