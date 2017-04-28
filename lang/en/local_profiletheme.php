@@ -26,6 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['addrule'] = 'Add rule for custom profile field ...';
 $string['addrules'] = 'Add new rule';
+$string['andnextrule'] = 'The next rule must also match, to be allocated this theme.';
 $string['delete'] = 'Delete this rule';
 $string['iffield'] = 'If {$a}';
 $string['intro'] = 'Use this form to define mappings between user custom profile fields and the theme that will be delivered to that user.<br>

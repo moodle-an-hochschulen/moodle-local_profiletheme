@@ -61,7 +61,7 @@ abstract class profilefields {
         if (!in_array($this->action, static::$actions)) {
             $this->action = 'view';
         }
-        if (!PHPUNIT_TEST) {
+        if (!PHPUNIT_TEST && !CLI_SCRIPT) {
             $url = new \moodle_url($PAGE->url, ['action' => $this->action]);
             $PAGE->set_url($url);
         }
@@ -203,6 +203,14 @@ abstract class profilefields {
     }
 
     /**
+     * Allow subclasses to define extra tabs to be included at the top of the page.
+     * @return \tabobject[]
+     */
+    protected function extra_tabs() {
+        return [];
+    }
+
+    /**
      * Generate tabs for the display
      * @return \tabtree
      */
@@ -214,6 +222,7 @@ abstract class profilefields {
                                  get_string('viewrules', 'local_profiletheme'));
         $tabs[] = new \tabobject('add', new \moodle_url($PAGE->url, ['action' => 'add']),
                                  get_string('addrules', 'local_profiletheme'));
+        $tabs = array_merge($tabs, $this->extra_tabs());
 
         $tabtree = new \tabtree($tabs, $this->action);
 
@@ -270,14 +279,40 @@ abstract class profilefields {
         $fields = self::load_profile_fields($rules, $userid);
 
         // Check the user profile fields against each of the rules.
-        foreach ($rules as $rule) {
-            if ($value = $rule->get_value($fields)) {
+        return self::get_value_from_rules($rules, $fields, $matchall);
+    }
+
+    /**
+     * Apply the rules to the fields to get the value(s).
+     * Takes into account 'andnextvalue' settings.
+     *
+     * @param field_base[] $rules
+     * @param string[] $fields fieldid => fieldvalue
+     * @param bool $matchall (optional) set to true to return all matching values
+     * @return array|null|string - array if $matchall is true, null (or empty array) if no match found
+     */
+    protected static function get_value_from_rules($rules, $fields, $matchall = false) {
+        $ret = $matchall ? [] : null;
+        $rule = reset($rules);
+        while ($rule) {
+            $value = $rule->get_value($fields);
+            while ($rule && $rule->should_and_next_field()) {
+                $rule = next($rules);
+                if (!$rule) {
+                    return $ret;
+                }
+                if ($value && !$rule->matches($fields)) {
+                    $value = null;
+                }
+            }
+            if ($value) {
                 if ($matchall) {
                     $ret[] = $value;
                 } else {
                     return $value;
                 }
             }
+            $rule = next($rules);
         }
         return $ret;
     }

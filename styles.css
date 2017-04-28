@@ -20,3 +20,33 @@
         background-color: inherit;
     }
 }
+
+.localprofile-combined {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.localprofile-combined .localprofile-fieldwrapper + .localprofile-fieldwrapper .localprofile-value {
+    display: none;
+}
+
+form #id_hiddenheading legend {
+    display: none;
+}
+
+.localprofile-fieldwrapper.todelete,
+.localprofile-fieldwrapper.todelete span,
+.localprofile-fieldwrapper.todelete div,
+.localprofile-fieldwrapper.todelete fieldset,
+.localprofile-fieldwrapper.todelete label,
+.localprofile-fieldwrapper.todelete select,
+.localprofile-fieldwrapper.todelete input {
+    color: #c38a8a;
+    text-decoration: line-through solid currentcolor;
+}
+.localprofile-fieldwrapper.todelete label.deleterule {
+    color: #888;
+    text-decoration: none;
+}
