@@ -453,4 +453,85 @@ class local_profiletheme_testcase extends advanced_testcase {
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
 
     }
+
+    /**
+     * Test combining rules together using 'and'
+     */
+    public function test_and_rules() {
+        global $DB;
+
+        // Set up a user with 'menufield' set to 'Opt 1', 'checkboxfield' set to 'No', 'textfield' set to 'Fred'.
+        $user1 = $this->getDataGenerator()->create_user();
+        $ins = (object)['userid' => $user1->id, 'fieldid' => $this->fieldids['menufield'], 'data' => 'Opt 1'];
+        $DB->insert_record('user_info_data', $ins);
+        $ins = (object)['userid' => $user1->id, 'fieldid' => $this->fieldids['checkboxfield'], 'data' => '0'];
+        $DB->insert_record('user_info_data', $ins);
+        $ins = (object)['userid' => $user1->id, 'fieldid' => $this->fieldids['textfield'], 'data' => 'Fred'];
+        $DB->insert_record('user_info_data', $ins);
+
+        // Set up a user with 'menufield' set to 'Opt 1', 'checkboxfield' set to 'No', 'textfield' set to 'George'.
+        $user2 = $this->getDataGenerator()->create_user();
+        $ins = (object)['userid' => $user2->id, 'fieldid' => $this->fieldids['menufield'], 'data' => 'Opt 1'];
+        $DB->insert_record('user_info_data', $ins);
+        $ins = (object)['userid' => $user2->id, 'fieldid' => $this->fieldids['checkboxfield'], 'data' => '0'];
+        $DB->insert_record('user_info_data', $ins);
+        $ins = (object)['userid' => $user2->id, 'fieldid' => $this->fieldids['textfield'], 'data' => 'George'];
+        $DB->insert_record('user_info_data', $ins);
+
+        // Set up a user with 'menufield' set to 'Opt 2', 'checkboxfield' set to 'No', 'textfield' set to 'Fred'.
+        $user3 = $this->getDataGenerator()->create_user();
+        $ins = (object)['userid' => $user3->id, 'fieldid' => $this->fieldids['menufield'], 'data' => 'Opt 2'];
+        $DB->insert_record('user_info_data', $ins);
+        $ins = (object)['userid' => $user3->id, 'fieldid' => $this->fieldids['checkboxfield'], 'data' => '0'];
+        $DB->insert_record('user_info_data', $ins);
+        $ins = (object)['userid' => $user3->id, 'fieldid' => $this->fieldids['textfield'], 'data' => 'Fred'];
+        $DB->insert_record('user_info_data', $ins);
+
+        // Create 4 rules - note theme values for rule 2 + 3 (cohort 1 + 2) should never be used,
+        // as they are additional rules to the rules above them.
+
+        // 'menufield' ==  'Opt 1' => 'clean' AND next rule must match.
+        $ruledata1 = (object)[
+            'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
+            'matchvalue' => 'Opt 1', 'value' => 'clean', 'andnextrule' => 1
+        ];
+        $rule1 = field_base::make_instance($ruledata1);
+        $rule1->save(self::TABLENAME);
+        // 'checkboxfield' == 0 => 'boost' AND next rule must match.
+        $ruledata2 = (object)[
+            'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
+            'matchvalue' => '0', 'value' => 'boost', 'andnextrule' => 1
+        ];
+        $rule2 = field_base::make_instance($ruledata2);
+        $rule2->save(self::TABLENAME);
+        // 'textfield' == 'Fred' => 'boost'.
+        $ruledata3 = (object)[
+            'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
+            'matchvalue' => 'Fred', 'value' => 'boost', 'andnextrule' => 0
+        ];
+        $rule3 = field_base::make_instance($ruledata3);
+        $rule3->save(self::TABLENAME);
+        // 'textfield' == 'Fred' => 'more' - this rule should match on its own.
+        $ruledata4 = (object)[
+            'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
+            'matchvalue' => 'Fred', 'value' => 'more', 'andnextrule' => 0
+        ];
+        $rule4 = field_base::make_instance($ruledata4);
+        $rule4->save(self::TABLENAME);
+
+        // Process the rules to get the new themes.
+        $user1theme = \local_profiletheme\profiletheme::get_mapped_value($user1->id);
+        $user2theme = \local_profiletheme\profiletheme::get_mapped_value($user2->id);
+        $user3theme = \local_profiletheme\profiletheme::get_mapped_value($user3->id);
+
+        // User1 should match rule 1, 2 + 3 ('clean') and rule 4 ('more') - but not 'boost' (from rules 2 + 3).
+        // Only 'clean' is returned, as the first matching rule wins.
+        $this->assertEquals('clean', $user1theme);
+
+        // User2 does not match rule 3 (so, not 'clean') or rule 4 (so, not 'more').
+        $this->assertEquals(false, $user2theme);
+
+        // User3 does not match rule 1 (so, not 'clean'), but does match rule 4 ('more').
+        $this->assertEquals('more', $user3theme);
+    }
 }
