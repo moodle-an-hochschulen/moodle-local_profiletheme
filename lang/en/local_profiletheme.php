@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addintro'] = 'Use this form to add mappings between user custom profile fields and the theme that will be delivered to that user.';
-$string['addrule'] = 'Add rule for custom profile field ...';
+$string['addintro'] = 'On this tab, you can add a new rule mapping a custom user profile field\'s value to a theme that will be delivered to a user.';
+$string['addrule'] = 'Add rule for custom user profile field ...';
 $string['addrules'] = 'Add new rule';
 $string['andnextrule'] = 'The next rule must also match, to be allocated this theme.';
 $string['delete'] = 'Delete this rule';
@@ -39,9 +39,8 @@ $string['match_notexact'] = 'Does not match';
 $string['matchtype'] = 'Match type';
 $string['matchvalue'] = 'Match value';
 $string['moveto'] = 'Move to position';
-$string['nofields'] = 'No custom profile fields have been defined';
+$string['nofields'] = 'No custom user profile fields have been defined.<br>You need to <a href="/user/profile/index.php">define custom user profile fields</a> before you can add rules here.';
 $string['pluginname'] = 'Profile field based theme delivery';
 $string['selectvalue'] = 'the user will get theme';
-$string['viewintro'] = 'Use this form to define mappings between user custom profile fields and the theme that will be delivered to that user.<br>
-Rules are processed in the order that they are displayed - the first matching rule will be used.';
+$string['viewintro'] = 'On this tab, you define the rules mapping custom user profile field values to the theme that will be delivered to a user.<br>The defined rules are processed in the order that they are displayed - the first matching rule will be used.';
 $string['viewrules'] = 'View / edit rules';

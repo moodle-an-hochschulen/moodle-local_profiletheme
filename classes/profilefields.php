@@ -201,7 +201,10 @@ abstract class profilefields {
         }
 
         if (!$this->get_possible_fields()) {
-            return get_string('nofields', 'local_profiletheme');
+            $notification = new \core\output\notification(get_string('nofields', 'local_profiletheme'), \core\output\notification::NOTIFY_ERROR);
+            $notification->set_show_closebutton(false);
+            $out .= $OUTPUT->render($notification);
+            return $out;
         }
 
         if ($this->action == 'add') {
