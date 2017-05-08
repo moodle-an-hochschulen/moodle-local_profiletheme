@@ -13,7 +13,11 @@ This plugin requires Moodle 3.2+
 Motivation for this plugin
 --------------------------
 
-TODO
+Moodle core provides multiple mechanims to deliver a certain theme in certain contexts: Course themes, category themes and the site theme. Additionally, users can be allowed to set their preferred theme as user theme in their user profile settings.
+
+Now, larger or fragmented Moodle installations may have multiple themes installed with each theme targeted at a certain group of users. Course or category themes might not completely match the needs for this scenario and asking each user to set the theme he should use in his user profile settings himself is simply unprofessional overkill.
+
+On the other hand these large or fragmented Moodle installations might already have some custom user profile fields - for example a field which contains a user's faculty - which can be leveraged to decide which theme a user should be delivered. This plugin implements a simple solution to deliver a certain theme based on a user's custom profile field.
 
 
 Installation
@@ -28,13 +32,39 @@ See http://docs.moodle.org/en/Installing_plugins for details on installing Moodl
 Usage & Settings
 ----------------
 
-TODO
+After installing the plugin, it does not do anything to Moodle yet.
+
+To configure the plugin and its behaviour, please visit:
+Site administration -> Users -> Accounts -> Profile field based theme delivery.
+
+There, you find two tabs:
+
+### 1. View / edit rules
+
+On this tab, you define the rules mapping custom user profile field values to the theme that will be delivered to a user.
+The defined rules are processed in the order that they are displayed - the first matching rule will be used.
+
+### 2. Add new rule
+
+When you use the plugin for the first time and there are no rules yet, this is the tab you will be shown first.
+
+On this tab, you can add a new rule mapping a custom user profile field's value to a theme that will be delivered to a user.
+
+If no custom user profile fields have been defined in your Moodle installation yet, you need to define custom user profile fields first on /user/profile/index.php before you can add rules here.
 
 
-How this plugin works
----------------------
+How this plugin works / Pitfalls
+--------------------------------
 
-TODO
+There is a defined order in Moodle which controls which mechanism finally decides about the theme to be delivered. This order is stored in $CFG->themeorder and defaults to course theme, category theme, session theme, user theme, site theme.
+
+With the exception of session themes Moodle core already provides a GUI to make use of these kind of theme delivery mechanims. As we didn't want to overrule any of the existing theme delivery mechanism, we went for the session theme mechanism to deliver a theme based on a user's custom profile field.
+
+This plugin simply listens for the \core\event\user_loggedin event, checks if there is an existing rule matching for the custom user profile field values of the user who has just logged in and sets the user's session theme to the theme configured in the rule. This theme is then valid for the user until he logs out (and terminates his session hereby). The next time the user logs in, the check is run again and the session theme ist set again.
+
+Please note, as described above, there is a defined order for theme delivery. Thus, course themes and category themes normally will override the theme delivered by this plugin. If you want to avoid this, you have to set $CFG->themeorder manually in config.php to
+`$CFG->themeorder = array('session', 'course', 'category', 'user', 'site');`
+Please have a look at config-dist.php for details about this setting.
 
 
 Theme support
