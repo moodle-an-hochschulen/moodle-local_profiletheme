@@ -34,6 +34,8 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Class profiletheme
  * @package local_profiletheme
+ * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class profiletheme extends profilefields {
     protected static $tablename = 'local_profiletheme';

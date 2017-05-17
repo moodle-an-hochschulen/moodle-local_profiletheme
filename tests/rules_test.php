@@ -29,6 +29,8 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Class test_profilefields
+ * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class test_profiletheme extends \local_profiletheme\profiletheme {
     /**
@@ -42,10 +44,18 @@ abstract class test_profiletheme extends \local_profiletheme\profiletheme {
 
 /**
  * Class local_profiletheme_testcase
+ * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class local_profiletheme_testcase extends advanced_testcase {
 
+    /**
+     * @var int[] mapping user profile field shortname => field id
+     */
     protected $fieldids = [];
+    /**
+     * The name of the table storing the rule definitions.
+     */
     const TABLENAME = 'local_profiletheme';
 
     /**
@@ -490,28 +500,28 @@ class local_profiletheme_testcase extends advanced_testcase {
         // Create 4 rules - note theme values for rule 2 + 3 (cohort 1 + 2) should never be used,
         // as they are additional rules to the rules above them.
 
-        // 'menufield' ==  'Opt 1' => 'clean' AND next rule must match.
+        // As 'menufield' ==  'Opt 1' => 'clean' AND next rule must match.
         $ruledata1 = (object)[
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
             'matchvalue' => 'Opt 1', 'value' => 'clean', 'andnextrule' => 1
         ];
         $rule1 = field_base::make_instance($ruledata1);
         $rule1->save(self::TABLENAME);
-        // 'checkboxfield' == 0 => 'boost' AND next rule must match.
+        // As 'checkboxfield' == 0 => 'boost' AND next rule must match.
         $ruledata2 = (object)[
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
             'matchvalue' => '0', 'value' => 'boost', 'andnextrule' => 1
         ];
         $rule2 = field_base::make_instance($ruledata2);
         $rule2->save(self::TABLENAME);
-        // 'textfield' == 'Fred' => 'boost'.
+        // As 'textfield' == 'Fred' => 'boost'.
         $ruledata3 = (object)[
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchvalue' => 'Fred', 'value' => 'boost', 'andnextrule' => 0
         ];
         $rule3 = field_base::make_instance($ruledata3);
         $rule3->save(self::TABLENAME);
-        // 'textfield' == 'Fred' => 'more' - this rule should match on its own.
+        // As 'textfield' == 'Fred' => 'more' - this rule should match on its own.
         $ruledata4 = (object)[
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchvalue' => 'Fred', 'value' => 'more', 'andnextrule' => 0
