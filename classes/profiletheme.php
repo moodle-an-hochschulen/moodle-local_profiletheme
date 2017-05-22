@@ -38,6 +38,7 @@ defined('MOODLE_INTERNAL') || die();
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class profiletheme extends profilefields {
+    /** @var string the database table to use */
     protected static $tablename = 'local_profiletheme';
 
     /**
