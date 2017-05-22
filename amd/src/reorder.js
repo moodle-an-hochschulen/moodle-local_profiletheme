@@ -42,6 +42,7 @@ define(['jquery'], function($) {
                     return false;
                 }
             }
+            return true;
         });
         if (!$displace) {
             return;

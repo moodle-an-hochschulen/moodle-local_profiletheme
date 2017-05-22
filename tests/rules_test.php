@@ -49,13 +49,9 @@ abstract class test_profiletheme extends \local_profiletheme\profiletheme {
  */
 class local_profiletheme_testcase extends advanced_testcase {
 
-    /**
-     * @var int[] mapping user profile field shortname => field id
-     */
+    /** @var int[] mapping user profile field shortname => field id */
     protected $fieldids = [];
-    /**
-     * The name of the table storing the rule definitions.
-     */
+    /** The name of the table storing the rule definitions. */
     const TABLENAME = 'local_profiletheme';
 
     /**

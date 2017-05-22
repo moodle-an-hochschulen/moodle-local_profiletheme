@@ -71,6 +71,15 @@ abstract class profilefields {
         }
     }
 
+    /**
+     * Get the URL of the main page for this plugin.
+     * @return \moodle_url
+     */
+    protected function get_index_url() {
+        global $PAGE;
+        return $PAGE->url;
+    }
+
     // ------------------------------------------
     // Admin form for editing mappings
     // ------------------------------------------
@@ -140,7 +149,7 @@ abstract class profilefields {
      * New sortorder is stored in the $formdata, to be applied by $rule->update_from_form_data()
      *
      * @param field_base[] $rules
-     * @param $formdata
+     * @param object $formdata
      * @return bool true if there were any changes made
      */
     protected function figure_out_sortorder($rules, $formdata) {
@@ -233,12 +242,10 @@ abstract class profilefields {
      * @return \tabtree
      */
     protected function get_tabs() {
-        global $PAGE;
-
         $tabs = [];
-        $tabs[] = new \tabobject('view', new \moodle_url($PAGE->url, ['action' => 'view']),
+        $tabs[] = new \tabobject('view', new \moodle_url($this->get_index_url(), ['action' => 'view']),
                                  get_string('viewrules', 'local_profiletheme'));
-        $tabs[] = new \tabobject('add', new \moodle_url($PAGE->url, ['action' => 'add']),
+        $tabs[] = new \tabobject('add', new \moodle_url($this->get_index_url(), ['action' => 'add']),
                                  get_string('addrules', 'local_profiletheme'));
         $tabs = array_merge($tabs, $this->extra_tabs());
 
@@ -283,7 +290,7 @@ abstract class profilefields {
      * For the given user, load their profile fields then match them against the
      * defined rules
      *
-     * @param $userid
+     * @param int $userid
      * @param bool $matchall (optional) set to true to get an array of all matches
      *                        false (default) to get only the first match
      * @return array|null|string - array if $matchall is true, null (or empty array) if no match found
