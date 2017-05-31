@@ -1,6 +1,8 @@
 moodle-local_profiletheme
 =========================
 
+[![Build Status](https://travis-ci.org/moodleuulm/moodle-local_profiletheme.svg?branch=master)](https://travis-ci.org/moodleuulm/moodle-local_profiletheme)
+
 Moodle plugin which lets admins deliver a certain theme based on a user's custom profile field
 
 
