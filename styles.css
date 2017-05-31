@@ -22,10 +22,10 @@
     }
 }
 .localprofile-combined {
+    background-color: #f9f9f9;
     border: 1px solid #ccc;
     margin: 5px;
     padding: 20px;
-    background-color: #f9f9f9;
 }
 .localprofile-combined .localprofile-fieldwrapper + .localprofile-fieldwrapper .localprofile-value {
     display: none;
@@ -38,7 +38,7 @@
 .localprofile-fieldwrapper.todelete select,
 .localprofile-fieldwrapper.todelete input {
     color: #c38a8a;
-    text-decoration: line-through solid currentcolor;
+    text-decoration: line-through solid currentColor;
 }
 .localprofile-fieldwrapper.todelete label.deleterule {
     color: #888;
