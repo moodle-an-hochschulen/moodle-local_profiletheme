@@ -39,7 +39,7 @@ $string['match_notexact'] = 'Does not match';
 $string['matchtype'] = 'Match type';
 $string['matchvalue'] = 'Match value';
 $string['moveto'] = 'Move to position';
-$string['nofields'] = 'No custom user profile fields have been defined.<br>You need to <a href="/user/profile/index.php">define custom user profile fields</a> before you can add rules here.';
+$string['nofields'] = 'No custom user profile fields have been defined.<br>You need to <a href="{$a->url}">define custom user profile fields</a> before you can add rules here.';
 $string['pluginname'] = 'Profile field based theme delivery';
 $string['selectvalue'] = 'the user will get theme';
 $string['viewintro'] = 'On this tab, you define the rules mapping custom user profile field values to the theme that will be delivered to a user.<br>The defined rules are processed in the order that they are displayed - the first matching rule will be used.';

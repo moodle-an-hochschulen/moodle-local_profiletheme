@@ -199,7 +199,7 @@ abstract class profilefields {
      * @return string
      */
     public function output_form() {
-        global $OUTPUT;
+        global $OUTPUT, $CFG;
 
         $out = '';
 
@@ -215,7 +215,9 @@ abstract class profilefields {
         }
 
         if (!$this->get_possible_fields()) {
-            $notification = new \core\output\notification(get_string('nofields', 'local_profiletheme'),
+            $notification = new \core\output\notification(get_string('nofields',
+                                                                'local_profiletheme',
+                                                                array('url' => $CFG->wwwroot.'/user/profile/index.php')),
                                                           \core\output\notification::NOTIFY_ERROR);
             $notification->set_show_closebutton(false);
             $out .= $OUTPUT->render($notification);
