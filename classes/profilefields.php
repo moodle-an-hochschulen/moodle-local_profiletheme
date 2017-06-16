@@ -199,7 +199,7 @@ abstract class profilefields {
      * @return string
      */
     public function output_form() {
-        global $OUTPUT, $CFG;
+        global $OUTPUT;
 
         $out = '';
 
@@ -215,9 +215,9 @@ abstract class profilefields {
         }
 
         if (!$this->get_possible_fields()) {
-            $notification = new \core\output\notification(get_string('nofields',
-                                                                'local_profiletheme',
-                                                                array('url' => $CFG->wwwroot.'/user/profile/index.php')),
+            $profilefieldsurl = new \moodle_url('/user/profile/index.php');
+            $link = \html_writer::link($profilefieldsurl, get_string('profilefields', 'core_admin', $profilefieldsurl));
+            $notification = new \core\output\notification(get_string('nofields', 'local_profiletheme', $link),
                                                           \core\output\notification::NOTIFY_ERROR);
             $notification->set_show_closebutton(false);
             $out .= $OUTPUT->render($notification);
