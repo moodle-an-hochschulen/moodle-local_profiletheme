@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2017-06-25 - Make codechecker happier
+
 ### v3.2-r5
 
 * 2017-05-19 - Improve Bugfix: String in language pack didn't work for Moodle installed in subdirectories
