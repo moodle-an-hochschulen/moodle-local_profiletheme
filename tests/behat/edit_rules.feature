@@ -1,4 +1,4 @@
-@local_profiletheme
+@local @local_profiletheme
 Feature: Edit rules based on profile fields
 
   Background:
