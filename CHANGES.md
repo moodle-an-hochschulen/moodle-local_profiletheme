@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2017-11-08 - Updated travis.yml to use newer node version for fixing TravisCI error.
+
 ### v3.2-r6
 
 * 2017-06-25 - Make codechecker happier
