@@ -59,6 +59,10 @@ class profiletheme extends profilefields {
         global $USER, $SESSION;
 
         if ($event && $event->userid != $USER->id) {
+            echo "<pre>";
+            var_dump($event);
+            echo "</pre>";
+            echo "$event->userid vs $USER->id";exit;
             return; // Only sets the theme for the current user.
         }
 
@@ -66,6 +70,23 @@ class profiletheme extends profilefields {
             $SESSION->theme = $theme;
         }
     }
+    
+    /**
+     * Called after the user has logged in as another user, to apply any mappings and set the session theme
+     * @param \core\event\base|null $event
+     */
+    public static function set_theme_from_profile_loginas(\core\event\base $event = null) {
+        global $USER, $SESSION;
+
+        if ($event && $event->relateduserid != $USER->id) {
+            return; // Only sets the theme for the current user.
+        }
+
+        if ($theme = self::get_mapped_value($USER->id)) {
+            $SESSION->theme = $theme;
+        }
+    }
+
 
     /**
      * Load a list of possible values that fields can be mapped onto.

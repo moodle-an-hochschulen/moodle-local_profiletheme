@@ -28,5 +28,9 @@ $observers = [
     [
         'eventname' => '\core\event\user_loggedin',
         'callback' => '\local_profiletheme\profiletheme::set_theme_from_profile'
+    ],
+    [
+        'eventname' => '\core\event\user_loggedinas',
+        'callback' => '\local_profiletheme\profiletheme::set_theme_from_profile_loginas'
     ]
 ];
