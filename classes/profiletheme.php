@@ -87,7 +87,6 @@ class profiletheme extends profilefields {
         }
     }
 
-
     /**
      * Load a list of possible values that fields can be mapped onto.
      * @return string[] $value => $displayname
