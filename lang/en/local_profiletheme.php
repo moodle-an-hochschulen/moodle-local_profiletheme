@@ -41,6 +41,7 @@ $string['matchvalue'] = 'Match value';
 $string['moveto'] = 'Move to position';
 $string['nofields'] = 'No custom user profile fields have been defined.<br>You need to define custom user profile fields before you can add rules here - please visit {$a} to create at least one custom user profile field';
 $string['pluginname'] = 'Profile field based theme delivery';
+$string['privacy:metadata'] = 'The profile field based theme delivery plugin provides extended functionality to Moodle admins, but does not store any personal data.';
 $string['selectvalue'] = 'the user will get theme';
 $string['viewintro'] = 'On this tab, you define the rules mapping custom user profile field values to the theme that will be delivered to a user.<br>The defined rules are processed in the order that they are displayed - the first matching rule will be used.';
 $string['viewrules'] = 'View / edit rules';
