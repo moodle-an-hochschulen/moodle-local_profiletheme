@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2018-05-30 - Minor change to the card structure due to changes in Moodle core.
+
 ### v3.4-r2
 
 * 2018-05-16 - Implement Privacy API.
