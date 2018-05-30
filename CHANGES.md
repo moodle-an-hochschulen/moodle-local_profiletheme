@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-05-30 - Minor change to README.md to respect recently added core cohort themes.
 * 2018-05-30 - Minor change to the card structure due to changes in Moodle core.
 
 ### v3.4-r2
