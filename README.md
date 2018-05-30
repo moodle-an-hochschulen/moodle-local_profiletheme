@@ -9,7 +9,7 @@ Moodle plugin which lets admins deliver a certain theme based on a user's custom
 Requirements
 ------------
 
-This plugin requires Moodle 3.4+
+This plugin requires Moodle 3.5+
 
 
 Motivation for this plugin
@@ -73,7 +73,7 @@ Theme support
 -------------
 
 This plugin acts behind the scenes, therefore it should work with all Moodle themes.
-It has been developed on and tested with Moodle Core's Clean and Boost themes.
+It has been developed on and tested only with Moodle Core's Boost theme.
 
 
 Plugin repositories
