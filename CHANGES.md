@@ -4,7 +4,7 @@ moodle-local_profiletheme
 Changes
 -------
 
-### Unreleased
+### v3.5-r1
 
 * 2018-05-30 - Minor change to README.md to respect recently added core cohort themes.
 * 2018-05-30 - Check compatibility for Moodle 3.5, no functionality change.
