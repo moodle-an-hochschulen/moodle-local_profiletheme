@@ -74,6 +74,7 @@ Theme support
 
 This plugin acts behind the scenes, therefore it should work with all Moodle themes.
 It has been developed on and tested only with Moodle Core's Boost theme.
+While this plugin should also work with Moodle Core's legacy Clean theme or third party themes, we can't support any other theme than Boost.
 
 
 Plugin repositories
