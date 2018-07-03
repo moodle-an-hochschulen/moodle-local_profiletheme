@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2018-07-03 - Bugfix: Login As did not show the right theme - Thanks to Jason Maur
+
 ### v3.5-r1
 
 * 2018-05-30 - Minor change to README.md to respect recently added core cohort themes.
