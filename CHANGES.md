@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2018-07-10 - Support for testing if text fields or textareas are (not) empty.
+
 ### v3.5-r2
 
 * 2018-07-03 - Bugfix: Login As did not show the right theme - Thanks to Jason Maur

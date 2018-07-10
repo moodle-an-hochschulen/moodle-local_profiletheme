@@ -412,12 +412,16 @@ class local_profiletheme_testcase extends advanced_testcase {
         // user1 has profile field 'Testing ABC'.
         // user2 has profile field 'Another test'.
         // user3 does not have the profile field set.
+        // user4 has an empty profile field.
         $user1 = $this->getDataGenerator()->create_user();
         $user2 = $this->getDataGenerator()->create_user();
         $user3 = $this->getDataGenerator()->create_user();
+        $user4 = $this->getDataGenerator()->create_user();
         $ins = (object) ['userid' => $user1->id, 'fieldid' => $this->fieldids['textfield'], 'data' => 'Testing ABC'];
         $DB->insert_record('user_info_data', $ins);
         $ins = (object) ['userid' => $user2->id, 'fieldid' => $this->fieldids['textfield'], 'data' => 'Another test'];
+        $DB->insert_record('user_info_data', $ins);
+        $ins = (object) ['userid' => $user4->id, 'fieldid' => $this->fieldids['textfield'], 'data' => ''];
         $DB->insert_record('user_info_data', $ins);
 
         // Create a 'text' rule, matching 'Another test' exactly.
@@ -433,6 +437,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals('more', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
 
         // Swap the rule to match 'testing abc' fields.
         $rule->matchvalue = 'testing abc';
@@ -441,6 +446,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $this->assertEquals('more', test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
 
         // Swap the rule to match 'test'.
         $rule->matchvalue = 'test';
@@ -449,6 +455,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
 
         // Swap the rule to 'contains' instead of 'exact'.
         $rule->matchtype = field_text::MATCH_CONTAINS;
@@ -457,7 +464,25 @@ class local_profiletheme_testcase extends advanced_testcase {
         $this->assertEquals('more', test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals('more', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
 
+        // Swap the rule to match empty value.
+        $rule->matchtype = field_text::MATCH_EMPTY;
+        $rule->save(self::TABLENAME);
+        // Check the rule matches as expected (user4).
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
+        $this->assertEquals('more', test_profiletheme::get_mapped_value($user4->id));
+
+        // Swap the rule to match any non-empty value.
+        $rule->matchtype = field_text::MATCH_NOTEMPTY;
+        $rule->save(self::TABLENAME);
+        // Check the rule matches as expected (user1 + user2).
+        $this->assertEquals('more', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('more', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
+        $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
     }
 
     /**

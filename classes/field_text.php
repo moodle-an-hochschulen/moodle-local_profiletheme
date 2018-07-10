@@ -51,6 +51,14 @@ class field_text extends field_base {
      * Field must not contain the value.
      */
     const MATCH_NOTCONTAINS = 'notcontains';
+    /**
+     * Field is empty.
+     */
+    const MATCH_EMPTY = 'empty';
+    /**
+     * Field is not empty.
+     */
+    const MATCH_NOTEMPTY = 'notempty';
 
     /**
      * @var string[] list of valid match types for this field.
@@ -58,7 +66,8 @@ class field_text extends field_base {
     protected static $matchtypes = [
         self::MATCH_EXACT, self::MATCH_CONTAINS,
         self::MATCH_NOTEXACT, self::MATCH_NOTCONTAINS,
-        self::MATCH_ISDEFINED, self::MATCH_NOTDEFINED
+        self::MATCH_ISDEFINED, self::MATCH_NOTDEFINED,
+        self::MATCH_EMPTY, self::MATCH_NOTEMPTY
     ];
 
     /**
@@ -87,6 +96,10 @@ class field_text extends field_base {
                 return (strpos($value, $matchvalue) !== false);
             case self::MATCH_NOTCONTAINS:
                 return (strpos($value, $matchvalue) === false);
+            case self::MATCH_EMPTY:
+                return strlen($value) == 0;
+            case self::MATCH_NOTEMPTY:
+                return strlen($value) > 0;
             case self::MATCH_EXACT:
             default:
                 return ($value == $matchvalue);
@@ -114,6 +127,8 @@ class field_text extends field_base {
         $mform->setDefault("matchvalue[$id]", $this->matchvalue);
         $mform->disabledIf("matchvalue[$id]", "matchtype[$id]", 'eq', self::MATCH_ISDEFINED);
         $mform->disabledIf("matchvalue[$id]", "matchtype[$id]", 'eq', self::MATCH_NOTDEFINED);
+        $mform->disabledIf("matchvalue[$id]", "matchtype[$id]", 'eq', self::MATCH_EMPTY);
+        $mform->disabledIf("matchvalue[$id]", "matchtype[$id]", 'eq', self::MATCH_NOTEMPTY);
 
         return [$type, $match];
     }
@@ -126,7 +141,10 @@ class field_text extends field_base {
      */
     protected function validation_internal($formdata, $id) {
         $errors = [];
-        if (!in_array($formdata['matchtype'][$id], [self::MATCH_ISDEFINED, self::MATCH_NOTDEFINED])) {
+        if (!in_array($formdata['matchtype'][$id], [
+                self::MATCH_ISDEFINED, self::MATCH_NOTDEFINED,
+                self::MATCH_EMPTY, self::MATCH_NOTEMPTY
+        ])) {
             if (empty($formdata['matchvalue'][$id])) {
                 $errors["matchvalue[$id]"] = get_string('required');
             }
