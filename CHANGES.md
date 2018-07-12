@@ -4,7 +4,7 @@ moodle-local_profiletheme
 Changes
 -------
 
-### Unreleased
+### v3.5-r3
 
 * 2018-07-10 - Support for testing if text fields or textareas are (not) empty.
 
