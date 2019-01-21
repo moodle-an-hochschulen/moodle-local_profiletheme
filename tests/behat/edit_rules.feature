@@ -10,7 +10,7 @@ Feature: Edit rules based on profile fields
       | textareafield | Text area field | textarea |                  |
       | datefield     | Date field      | datetime |                  |
     And I log in as "admin"
-    And I navigate to "Profile field based theme delivery" node in "Site administration > Users > Accounts"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And I should not see "Date field"
 
   Scenario: Add, update and delete a checkbox field rule
@@ -20,7 +20,7 @@ Feature: Edit rules based on profile fields
       | Match value             | Yes   |
       | the user will get theme | Clean |
     And I press "Save changes"
-    And I navigate to "Profile field based theme delivery" node in "Site administration > Users > Accounts"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     Then the following fields match these values:
       | Match value             | Yes   |
       | the user will get theme | Clean |
@@ -28,7 +28,7 @@ Feature: Edit rules based on profile fields
       | Match value             | No   |
       | the user will get theme | More |
     And I press "Save changes"
-    And I navigate to "Profile field based theme delivery" node in "Site administration > Users > Accounts"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
       | Match value             | No   |
       | the user will get theme | More |
@@ -43,7 +43,7 @@ Feature: Edit rules based on profile fields
       | Match value             | Opt2  |
       | the user will get theme | Clean |
     And I press "Save changes"
-    And I navigate to "Profile field based theme delivery" node in "Site administration > Users > Accounts"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     Then "Menu field" "text" should exist in the "form.mform" "css_element"
     And the following fields match these values:
       | Match value             | Opt2  |
@@ -52,7 +52,7 @@ Feature: Edit rules based on profile fields
       | Match value             | Opt3 |
       | the user will get theme | More |
     And I press "Save changes"
-    And I navigate to "Profile field based theme delivery" node in "Site administration > Users > Accounts"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
       | Match value             | Opt3 |
       | the user will get theme | More |
@@ -68,7 +68,7 @@ Feature: Edit rules based on profile fields
       | Match type              | Matches |
       | the user will get theme | Clean   |
     And I press "Save changes"
-    And I navigate to "Profile field based theme delivery" node in "Site administration > Users > Accounts"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     Then "Text field" "text" should exist in the "form.mform" "css_element"
     And the following fields match these values:
       | Match value             | testing |
@@ -79,7 +79,7 @@ Feature: Edit rules based on profile fields
       | Match type              | Contains      |
       | the user will get theme | More          |
     And I press "Save changes"
-    And I navigate to "Profile field based theme delivery" node in "Site administration > Users > Accounts"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
       | Match value             | testing again |
       | Match type              | Contains      |

@@ -6,7 +6,8 @@ Changes
 
 ### Unreleased
 
-* 2019-01-21 - Check compatibility for Moodle 3.6, no functionality change.
+* 2019-03-26 - Replaced deprecated Behat test steps.
+* 2019-03-26 - Check compatibility for Moodle 3.6, no functionality change.
 * 2019-03-25 - Add the fact that we are listening to \core\event\user_loggedinas event to README.md.
 * 2018-12-05 - Changed travis.yml due to upstream changes.
 
