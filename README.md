@@ -62,7 +62,7 @@ There is a defined order in Moodle which controls which mechanism finally decide
 
 With the exception of session themes Moodle core already provides a GUI to make use of these theme delivery mechanims. As we didn't want to overrule any of the existing theme delivery mechanism, we went for the session theme mechanism to deliver a theme based on a user's custom profile field.
 
-This plugin simply listens for the \core\event\user_loggedin event, checks if there is an existing rule matching for the custom user profile field values of the user who has just logged in and sets the user's session theme to the theme configured in the rule. This theme is then delivered to this single user until he logs out (and terminates his session hereby). The next time the user logs in, the check is performed again and the session theme is set again.
+This plugin simply listens for the \core\event\user_loggedin and \core\event\user_loggedinas events, checks if there is an existing rule matching for the custom user profile field values of the user who has just logged in and sets the user's session theme to the theme configured in the rule. This theme is then delivered to this single user until he logs out (and terminates his session hereby). The next time the user logs in, the check is performed again and the session theme is set again.
 
 Please note, as described above, there is a defined order for theme delivery mechanisms. Based on the default order, course themes and category themes will override the theme delivered by this plugin. If you want to avoid this, you have to set $CFG->themeorder manually in config.php to
 `$CFG->themeorder = array('session', 'course', 'category', 'user', 'cohort', 'site');`.
