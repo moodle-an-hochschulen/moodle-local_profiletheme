@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2019-07-02 - Prepare compatibility for Moodle 3.7.
+
 ### v3.6-r1
 
 * 2019-03-26 - Replaced deprecated Behat test steps.
