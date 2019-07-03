@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-07-03 - Make codechecker happy.
 * 2019-07-03 - Adjusted PHP unit tests.
 * 2019-07-03 - Fixed broken behat tests and renamed the feature file.
 * 2019-07-02 - Prepare compatibility for Moodle 3.7.

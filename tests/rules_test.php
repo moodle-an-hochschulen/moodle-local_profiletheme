@@ -178,7 +178,6 @@ class local_profiletheme_testcase extends advanced_testcase {
         $rule->save(self::TABLENAME);
 
         // Reload the 'text' rule, change it, then save it.
-        /** @var $loadedrule field_base */
         list($loadedrule, ) = test_profiletheme::test_load_rules();
         $loadedrule->matchtype = field_text::MATCH_CONTAINS;
         $loadedrule->matchvalue = 'testing2';
