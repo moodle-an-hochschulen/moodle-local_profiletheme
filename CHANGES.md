@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-07-03 - Fixed broken behat tests and renamed the feature file.
 * 2019-07-02 - Prepare compatibility for Moodle 3.7.
 
 ### v3.6-r1

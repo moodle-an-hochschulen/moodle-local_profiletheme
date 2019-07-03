@@ -18,20 +18,20 @@ Feature: Edit rules based on profile fields
     And "Checkbox field" "text" should exist in the "form.mform" "css_element"
     And I set the following fields to these values:
       | Match value             | Yes   |
-      | the user will get theme | Clean |
+      | the user will get theme | Boost |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     Then the following fields match these values:
       | Match value             | Yes   |
-      | the user will get theme | Clean |
+      | the user will get theme | Boost |
     And I set the following fields to these values:
-      | Match value             | No   |
-      | the user will get theme | More |
+      | Match value             | No      |
+      | the user will get theme | Classic |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
-      | Match value             | No   |
-      | the user will get theme | More |
+      | Match value             | No      |
+      | the user will get theme | Classic |
     And I set the field "Delete this rule" to "1"
     And I press "Save changes"
     And "Checkbox field" "text" should not exist in the "form.mform" "css_element"
@@ -41,21 +41,21 @@ Feature: Edit rules based on profile fields
     And "Menu field" "text" should exist in the "form.mform" "css_element"
     And I set the following fields to these values:
       | Match value             | Opt2  |
-      | the user will get theme | Clean |
+      | the user will get theme | Boost |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     Then "Menu field" "text" should exist in the "form.mform" "css_element"
     And the following fields match these values:
       | Match value             | Opt2  |
-      | the user will get theme | Clean |
+      | the user will get theme | Boost |
     And I set the following fields to these values:
-      | Match value             | Opt3 |
-      | the user will get theme | More |
+      | Match value             | Opt3    |
+      | the user will get theme | Classic |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
-      | Match value             | Opt3 |
-      | the user will get theme | More |
+      | Match value             | Opt3    |
+      | the user will get theme | Classic |
     And I set the field "Delete this rule" to "1"
     And I press "Save changes"
     And "Menu field" "text" should not exist in the "form.mform" "css_element"
@@ -66,24 +66,24 @@ Feature: Edit rules based on profile fields
     And I set the following fields to these values:
       | Match value             | testing |
       | Match type              | Matches |
-      | the user will get theme | Clean   |
+      | the user will get theme | Boost   |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     Then "Text field" "text" should exist in the "form.mform" "css_element"
     And the following fields match these values:
       | Match value             | testing |
       | Match type              | Matches |
-      | the user will get theme | Clean   |
+      | the user will get theme | Boost   |
     And I set the following fields to these values:
       | Match value             | testing again |
       | Match type              | Contains      |
-      | the user will get theme | More          |
+      | the user will get theme | Classic       |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
       | Match value             | testing again |
       | Match type              | Contains      |
-      | the user will get theme | More          |
+      | the user will get theme | Classic       |
     And I set the field "Delete this rule" to "1"
     And I press "Save changes"
     And "Text field" "text" should not exist in the "form.mform" "css_element"
