@@ -91,7 +91,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         // Create a 'checkbox' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
-            'matchvalue' => 1, 'value' => 'more'
+            'matchvalue' => 1, 'value' => 'classic'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -107,7 +107,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         // Create a 'menu' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 2', 'value' => 'clean'
+            'matchvalue' => 'Opt 2', 'value' => 'boost'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -124,7 +124,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'more'
+            'matchvalue' => 'testing', 'value' => 'classic'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -142,7 +142,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textareafield'], 'datatype' => 'textarea',
             'matchtype' => field_text::MATCH_CONTAINS,
-            'matchvalue' => 'testing', 'value' => 'clean'
+            'matchvalue' => 'testing', 'value' => 'boost'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -165,14 +165,14 @@ class local_profiletheme_testcase extends advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'more'
+            'matchvalue' => 'testing', 'value' => 'classic'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
         // Create a 'menu' rule.
         $ruledata2 = (object) [
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 2', 'value' => 'clean'
+            'matchvalue' => 'Opt 2', 'value' => 'boost'
         ];
         $rule = field_base::make_instance($ruledata2);
         $rule->save(self::TABLENAME);
@@ -182,7 +182,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         list($loadedrule, ) = test_profiletheme::test_load_rules();
         $loadedrule->matchtype = field_text::MATCH_CONTAINS;
         $loadedrule->matchvalue = 'testing2';
-        $loadedrule->value = 'clean';
+        $loadedrule->value = 'boost';
         $loadedrule->save(self::TABLENAME);
 
         // Check the 'text' rule has been updated and the 'menu' rule is unchanged.
@@ -192,7 +192,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $this->assertEquals($ruledata->fieldid, $changedrule->fieldid);
         $this->assertEquals('testing2', $changedrule->matchvalue);
         $this->assertEquals(field_text::MATCH_CONTAINS, $changedrule->matchtype);
-        $this->assertEquals('clean', $changedrule->value);
+        $this->assertEquals('boost', $changedrule->value);
 
         $this->assertEquals($ruledata2->fieldid, $unchangedrule->fieldid);
         $this->assertEquals($ruledata2->matchvalue, $unchangedrule->matchvalue);
@@ -207,14 +207,14 @@ class local_profiletheme_testcase extends advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'more'
+            'matchvalue' => 'testing', 'value' => 'classic'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
         // Create a 'menu' rule.
         $ruledata2 = (object) [
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 2', 'value' => 'clean'
+            'matchvalue' => 'Opt 2', 'value' => 'boost'
         ];
         $rule = field_base::make_instance($ruledata2);
         $rule->save(self::TABLENAME);
@@ -241,7 +241,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'more'
+            'matchvalue' => 'testing', 'value' => 'classic'
         ];
         $rule1 = field_base::make_instance($ruledata);
         $rule1->save(self::TABLENAME);
@@ -259,7 +259,7 @@ class local_profiletheme_testcase extends advanced_testcase {
             'fieldid' => ['new' => $this->fieldids['menufield'], $rule1->id => $rule1->fieldid],
             'matchtype' => [$rule1->id => $rule1->matchtype],
             'matchvalue' => ['new' => 'Opt 2', $rule1->id => $rule1->matchvalue],
-            'value' => ['new' => 'clean', $rule1->id => $rule1->value],
+            'value' => ['new' => 'boost', $rule1->id => $rule1->value],
         ];
         foreach ($rules as $updrule) {
             $updrule->update_from_form_data(self::TABLENAME, $formdata);
@@ -275,7 +275,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         // Rule2 should have been created.
         $this->assertEquals($this->fieldids['menufield'], $rule2->fieldid);
         $this->assertEquals('Opt 2', $rule2->matchvalue);
-        $this->assertEquals('clean', $rule2->value);
+        $this->assertEquals('boost', $rule2->value);
 
         // Form data: update the 'text' rule.
         $formdata = (object) [
@@ -283,7 +283,7 @@ class local_profiletheme_testcase extends advanced_testcase {
             'fieldid' => [$rule1->id => $rule1->fieldid, $rule2->id => $rule2->fieldid],
             'matchtype' => [$rule1->id => field_text::MATCH_CONTAINS],
             'matchvalue' => [$rule1->id => 'teting updated', $rule2->id => $rule2->matchvalue],
-            'value' => [$rule1->id => 'clean', $rule2->id => $rule2->value],
+            'value' => [$rule1->id => 'boost', $rule2->id => $rule2->value],
         ];
         foreach ($rules as $updrule) {
             $updrule->update_from_form_data(self::TABLENAME, $formdata);
@@ -295,11 +295,11 @@ class local_profiletheme_testcase extends advanced_testcase {
         $this->assertEquals($ruledata->fieldid, $rule1->fieldid);
         $this->assertEquals(field_text::MATCH_CONTAINS, $rule1->matchtype);
         $this->assertEquals('teting updated', $rule1->matchvalue);
-        $this->assertEquals('clean', $rule1->value);
+        $this->assertEquals('boost', $rule1->value);
         // Rule2 should be unchanged.
         $this->assertEquals($this->fieldids['menufield'], $rule2->fieldid);
         $this->assertEquals('Opt 2', $rule2->matchvalue);
-        $this->assertEquals('clean', $rule2->value);
+        $this->assertEquals('boost', $rule2->value);
 
         // Form data: delete the 'text' rule.
         $formdata = (object) [
@@ -307,7 +307,7 @@ class local_profiletheme_testcase extends advanced_testcase {
             'fieldid' => [$rule1->id => $rule1->fieldid, $rule2->id => $rule2->fieldid],
             'matchtype' => [$rule1->id => field_text::MATCH_CONTAINS],
             'matchvalue' => [$rule1->id => 'teting updated', $rule2->id => $rule2->matchvalue],
-            'value' => [$rule1->id => 'clean', $rule2->id => $rule2->value],
+            'value' => [$rule1->id => 'boost', $rule2->id => $rule2->value],
         ];
         foreach ($rules as $updrule) {
             $updrule->update_from_form_data(self::TABLENAME, $formdata);
@@ -320,7 +320,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         // Rule2 should be unchanged.
         $this->assertEquals($this->fieldids['menufield'], $rule2->fieldid);
         $this->assertEquals('Opt 2', $rule2->matchvalue);
-        $this->assertEquals('clean', $rule2->value);
+        $this->assertEquals('boost', $rule2->value);
     }
 
     /**
@@ -343,14 +343,14 @@ class local_profiletheme_testcase extends advanced_testcase {
         // Create a 'checkbox' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
-            'matchvalue' => 1, 'value' => 'more'
+            'matchvalue' => 1, 'value' => 'classic'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
 
         // Check the rule matches as expected.
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
 
         // Swap the rule to match unticked fields.
@@ -358,7 +358,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $rule->save(self::TABLENAME);
 
         // Check the rule matches as expected.
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
     }
@@ -383,14 +383,14 @@ class local_profiletheme_testcase extends advanced_testcase {
         // Create a 'menu' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 2', 'value' => 'clean'
+            'matchvalue' => 'Opt 2', 'value' => 'boost'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
 
         // Check the rule matches as expected.
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('clean', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('boost', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
 
         // Swap the rule to match 'Opt 1' fields.
@@ -398,7 +398,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $rule->save(self::TABLENAME);
 
         // Check the rule matches as expected.
-        $this->assertEquals('clean', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('boost', test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
     }
@@ -428,14 +428,14 @@ class local_profiletheme_testcase extends advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'Another test', 'value' => 'more'
+            'matchvalue' => 'Another test', 'value' => 'classic'
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
 
         // Check the rule matches as expected (user2).
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
 
@@ -443,7 +443,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         $rule->matchvalue = 'testing abc';
         $rule->save(self::TABLENAME);
         // Check the rule matches as expected (user1).
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
@@ -461,8 +461,8 @@ class local_profiletheme_testcase extends advanced_testcase {
         $rule->matchtype = field_text::MATCH_CONTAINS;
         $rule->save(self::TABLENAME);
         // Check the rule matches as expected (user1 + user2).
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
 
@@ -473,14 +473,14 @@ class local_profiletheme_testcase extends advanced_testcase {
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user4->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user4->id));
 
         // Swap the rule to match any non-empty value.
         $rule->matchtype = field_text::MATCH_NOTEMPTY;
         $rule->save(self::TABLENAME);
         // Check the rule matches as expected (user1 + user2).
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('more', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
     }
@@ -521,10 +521,10 @@ class local_profiletheme_testcase extends advanced_testcase {
         // Create 4 rules - note theme values for rule 2 + 3 (cohort 1 + 2) should never be used,
         // as they are additional rules to the rules above them.
 
-        // As 'menufield' ==  'Opt 1' => 'clean' AND next rule must match.
+        // As 'menufield' ==  'Opt 1' => 'boost' AND next rule must match.
         $ruledata1 = (object)[
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 1', 'value' => 'clean', 'andnextrule' => 1
+            'matchvalue' => 'Opt 1', 'value' => 'boost', 'andnextrule' => 1
         ];
         $rule1 = field_base::make_instance($ruledata1);
         $rule1->save(self::TABLENAME);
@@ -542,10 +542,10 @@ class local_profiletheme_testcase extends advanced_testcase {
         ];
         $rule3 = field_base::make_instance($ruledata3);
         $rule3->save(self::TABLENAME);
-        // As 'textfield' == 'Fred' => 'more' - this rule should match on its own.
+        // As 'textfield' == 'Fred' => 'classic' - this rule should match on its own.
         $ruledata4 = (object)[
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
-            'matchvalue' => 'Fred', 'value' => 'more', 'andnextrule' => 0
+            'matchvalue' => 'Fred', 'value' => 'classic', 'andnextrule' => 0
         ];
         $rule4 = field_base::make_instance($ruledata4);
         $rule4->save(self::TABLENAME);
@@ -555,14 +555,14 @@ class local_profiletheme_testcase extends advanced_testcase {
         $user2theme = \local_profiletheme\profiletheme::get_mapped_value($user2->id);
         $user3theme = \local_profiletheme\profiletheme::get_mapped_value($user3->id);
 
-        // User1 should match rule 1, 2 + 3 ('clean') and rule 4 ('more') - but not 'boost' (from rules 2 + 3).
-        // Only 'clean' is returned, as the first matching rule wins.
-        $this->assertEquals('clean', $user1theme);
+        // User1 should match rule 1, 2 + 3 ('boost') and rule 4 ('classic') - but not 'boost' (from rules 2 + 3).
+        // Only 'boost' is returned, as the first matching rule wins.
+        $this->assertEquals('boost', $user1theme);
 
-        // User2 does not match rule 3 (so, not 'clean') or rule 4 (so, not 'more').
+        // User2 does not match rule 3 (so, not 'boost') or rule 4 (so, not 'classic').
         $this->assertEquals(false, $user2theme);
 
-        // User3 does not match rule 1 (so, not 'clean'), but does match rule 4 ('more').
-        $this->assertEquals('more', $user3theme);
+        // User3 does not match rule 1 (so, not 'boost'), but does match rule 4 ('classic').
+        $this->assertEquals('classic', $user3theme);
     }
 }
