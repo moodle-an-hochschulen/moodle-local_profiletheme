@@ -4,7 +4,7 @@ moodle-local_profiletheme
 Changes
 -------
 
-### Unreleased
+### V3.7-r1
 
 * 2019-07-03 - Make codechecker happy.
 * 2019-07-03 - Adjusted PHP unit tests.
