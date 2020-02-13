@@ -9,7 +9,7 @@ Moodle plugin which lets admins deliver a certain theme based on a user's custom
 Requirements
 ------------
 
-This plugin requires Moodle 3.7+
+This plugin requires Moodle 3.8+
 
 
 Motivation for this plugin

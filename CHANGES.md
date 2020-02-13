@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2020-02-13 - Prepare compatibility for Moodle 3.8.
+
 ### V3.7-r1
 
 * 2019-07-03 - Make codechecker happy.
