@@ -534,7 +534,7 @@ class local_profiletheme_testcase extends advanced_testcase {
         ];
         $rule2 = field_base::make_instance($ruledata2);
         $rule2->save(self::TABLENAME);
-        // As 'textfield' == 'Fred' => 'boost'.
+        // As 'textfield' == 'Fred' => 'boost' - this is the final rule for this ruleset.
         $ruledata3 = (object)[
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchvalue' => 'Fred', 'value' => 'boost', 'andnextrule' => 0
