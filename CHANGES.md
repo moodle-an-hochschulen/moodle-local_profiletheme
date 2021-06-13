@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2021-06-13 - Prepare compatibility for Moodle 3.11.
+
 ### v3.10-r2
 
 * 2021-02-05 - Make codechecker fully happy
