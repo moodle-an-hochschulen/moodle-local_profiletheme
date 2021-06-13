@@ -4,7 +4,7 @@ moodle-local_profiletheme
 Changes
 -------
 
-### Unreleased
+### v3.11-r1
 
 * 2021-06-13 - Prepare compatibility for Moodle 3.11.
 * 2021-06-13 - Added definition for a PHPUnit local_profiletheme_testsuite.
