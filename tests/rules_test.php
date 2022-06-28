@@ -22,32 +22,16 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_profiletheme\field_base;
-use local_profiletheme\field_text;
+namespace local_profiletheme;
 
 defined('MOODLE_INTERNAL') || die();
-
-/**
- * Class test_profilefields
- * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-abstract class test_profiletheme extends \local_profiletheme\profiletheme {
-    /**
-     * Expose the results of the protected 'load_rules' function.
-     * @return field_base[]
-     */
-    public static function test_load_rules() {
-        return self::load_rules();
-    }
-}
 
 /**
  * Class local_profiletheme_testcase
  * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_profiletheme_testcase extends advanced_testcase {
+class rules_test extends \advanced_testcase {
 
     /** @var int[] mapping user profile field shortname => field id */
     protected $fieldids = [];
@@ -550,9 +534,9 @@ class local_profiletheme_testcase extends advanced_testcase {
         $rule4->save(self::TABLENAME);
 
         // Process the rules to get the new themes.
-        $user1theme = \local_profiletheme\profiletheme::get_mapped_value($user1->id);
-        $user2theme = \local_profiletheme\profiletheme::get_mapped_value($user2->id);
-        $user3theme = \local_profiletheme\profiletheme::get_mapped_value($user3->id);
+        $user1theme = profiletheme::get_mapped_value($user1->id);
+        $user2theme = profiletheme::get_mapped_value($user2->id);
+        $user3theme = profiletheme::get_mapped_value($user3->id);
 
         // User1 should match rule 1, 2 + 3 ('boost') and rule 4 ('classic') - but not 'boost' (from rules 2 + 3).
         // Only 'boost' is returned, as the first matching rule wins.
@@ -563,5 +547,20 @@ class local_profiletheme_testcase extends advanced_testcase {
 
         // User3 does not match rule 1 (so, not 'boost'), but does match rule 4 ('classic').
         $this->assertEquals('classic', $user3theme);
+    }
+}
+
+/**
+ * Class test_profilefields
+ * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+abstract class test_profiletheme extends profiletheme {
+    /**
+     * Expose the results of the protected 'load_rules' function.
+     * @return field_base[]
+     */
+    public static function test_load_rules() {
+        return self::load_rules();
     }
 }

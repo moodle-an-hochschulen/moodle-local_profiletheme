@@ -26,8 +26,6 @@ namespace local_profiletheme;
 
 use MoodleQuickForm;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class field_checkbox
  * @package local_profiletheme
