@@ -27,8 +27,6 @@ namespace local_profiletheme;
 use moodleform;
 use single_select;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class profilefields
  * @package local_profiletheme

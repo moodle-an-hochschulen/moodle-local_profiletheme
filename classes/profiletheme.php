@@ -29,8 +29,6 @@ use Exception;
 use html_writer;
 use theme_config;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class profiletheme
  * @package local_profiletheme
