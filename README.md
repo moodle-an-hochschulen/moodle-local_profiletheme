@@ -55,6 +55,12 @@ On this tab, you can add a new rule mapping a custom user profile field's value 
 If no custom user profile fields have been defined in your Moodle installation yet, you need to define custom user profile fields first on /user/profile/index.php before you can add rules here.
 
 
+Capabilities
+------------
+
+This plugin does not add any additional capabilities.
+
+
 How this plugin works / Pitfalls
 --------------------------------
 
