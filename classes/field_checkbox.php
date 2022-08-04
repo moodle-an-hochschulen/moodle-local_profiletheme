@@ -52,8 +52,10 @@ class field_checkbox extends field_base {
             self::MATCH_NOTDEFINED => get_string('match_notdefined', 'local_profiletheme'),
         ];
 
-        $label = $mform->createElement('static', "matchlabel[$id]", '', get_string('match_exact', 'local_profiletheme'));
-        $sel = $mform->createElement('select', "matchvalue[$id]", get_string('matchvalue', 'local_profiletheme'), $opts);
+        $label = $mform->createElement('static', "matchlabel[$id]", '', get_string('match_exact', 'local_profiletheme').
+                '<span class="pr-2"></span>');
+        $sel = $mform->createElement('select', "matchvalue[$id]", get_string('matchvalue', 'local_profiletheme'), $opts,
+                ['class' => 'pr-2']);
         $mform->setDefault("matchvalue[$id]", $matchvalue);
         return [$label, $sel];
     }
