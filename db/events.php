@@ -27,10 +27,10 @@ defined('MOODLE_INTERNAL') || die();
 $observers = [
     [
         'eventname' => '\core\event\user_loggedin',
-        'callback' => '\local_profiletheme\profiletheme::set_theme_from_profile'
+        'callback' => '\local_profiletheme\profiletheme::set_theme_from_profile',
     ],
     [
         'eventname' => '\core\event\user_loggedinas',
-        'callback' => '\local_profiletheme\profiletheme::set_theme_from_profile_loginas'
-    ]
+        'callback' => '\local_profiletheme\profiletheme::set_theme_from_profile_loginas',
+    ],
 ];

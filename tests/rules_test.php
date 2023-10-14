@@ -79,7 +79,7 @@ class rules_test extends \advanced_testcase {
         // Create a 'checkbox' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
-            'matchvalue' => 1, 'value' => 'classic'
+            'matchvalue' => 1, 'value' => 'classic',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -95,7 +95,7 @@ class rules_test extends \advanced_testcase {
         // Create a 'menu' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 2', 'value' => 'boost'
+            'matchvalue' => 'Opt 2', 'value' => 'boost',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -112,7 +112,7 @@ class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'classic'
+            'matchvalue' => 'testing', 'value' => 'classic',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -130,7 +130,7 @@ class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textareafield'], 'datatype' => 'textarea',
             'matchtype' => field_text::MATCH_CONTAINS,
-            'matchvalue' => 'testing', 'value' => 'boost'
+            'matchvalue' => 'testing', 'value' => 'boost',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -157,14 +157,14 @@ class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'classic'
+            'matchvalue' => 'testing', 'value' => 'classic',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
         // Create a 'menu' rule.
         $ruledata2 = (object) [
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 2', 'value' => 'boost'
+            'matchvalue' => 'Opt 2', 'value' => 'boost',
         ];
         $rule = field_base::make_instance($ruledata2);
         $rule->save(self::TABLENAME);
@@ -202,14 +202,14 @@ class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'classic'
+            'matchvalue' => 'testing', 'value' => 'classic',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
         // Create a 'menu' rule.
         $ruledata2 = (object) [
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 2', 'value' => 'boost'
+            'matchvalue' => 'Opt 2', 'value' => 'boost',
         ];
         $rule = field_base::make_instance($ruledata2);
         $rule->save(self::TABLENAME);
@@ -240,7 +240,7 @@ class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'classic'
+            'matchvalue' => 'testing', 'value' => 'classic',
         ];
         $rule1 = field_base::make_instance($ruledata);
         $rule1->save(self::TABLENAME);
@@ -346,7 +346,7 @@ class rules_test extends \advanced_testcase {
         // Create a 'checkbox' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
-            'matchvalue' => 1, 'value' => 'classic'
+            'matchvalue' => 1, 'value' => 'classic',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -390,7 +390,7 @@ class rules_test extends \advanced_testcase {
         // Create a 'menu' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 2', 'value' => 'boost'
+            'matchvalue' => 'Opt 2', 'value' => 'boost',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -439,7 +439,7 @@ class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'Another test', 'value' => 'classic'
+            'matchvalue' => 'Another test', 'value' => 'classic',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -539,28 +539,28 @@ class rules_test extends \advanced_testcase {
         // As 'menufield' ==  'Opt 1' => 'boost' AND next rule must match.
         $ruledata1 = (object)[
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
-            'matchvalue' => 'Opt 1', 'value' => 'boost', 'andnextrule' => 1
+            'matchvalue' => 'Opt 1', 'value' => 'boost', 'andnextrule' => 1,
         ];
         $rule1 = field_base::make_instance($ruledata1);
         $rule1->save(self::TABLENAME);
         // As 'checkboxfield' == 0 => 'boost' AND next rule must match.
         $ruledata2 = (object)[
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
-            'matchvalue' => '0', 'value' => 'boost', 'andnextrule' => 1
+            'matchvalue' => '0', 'value' => 'boost', 'andnextrule' => 1,
         ];
         $rule2 = field_base::make_instance($ruledata2);
         $rule2->save(self::TABLENAME);
         // As 'textfield' == 'Fred' => 'boost' - this is the final rule for this ruleset.
         $ruledata3 = (object)[
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
-            'matchvalue' => 'Fred', 'value' => 'boost', 'andnextrule' => 0
+            'matchvalue' => 'Fred', 'value' => 'boost', 'andnextrule' => 0,
         ];
         $rule3 = field_base::make_instance($ruledata3);
         $rule3->save(self::TABLENAME);
         // As 'textfield' == 'Fred' => 'classic' - this rule should match on its own.
         $ruledata4 = (object)[
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
-            'matchvalue' => 'Fred', 'value' => 'classic', 'andnextrule' => 0
+            'matchvalue' => 'Fred', 'value' => 'classic', 'andnextrule' => 0,
         ];
         $rule4 = field_base::make_instance($ruledata4);
         $rule4->save(self::TABLENAME);
