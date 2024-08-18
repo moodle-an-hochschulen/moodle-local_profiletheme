@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class rules_test extends \advanced_testcase {
+final class rules_test extends \advanced_testcase {
 
     /** @var int[] mapping user profile field shortname => field id */
     protected $fieldids = [];
@@ -75,7 +75,7 @@ class rules_test extends \advanced_testcase {
      * It is adopted from block_html and does not have a coverage tag there either. Thus, we set coversNothing.
      * @coversNothing
      */
-    public function test_create_rules() {
+    public function test_create_rules(): void {
         // Create a 'checkbox' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
@@ -152,7 +152,7 @@ class rules_test extends \advanced_testcase {
      * It is adopted from block_html and does not have a coverage tag there either. Thus, we set coversNothing.
      * @coversNothing
      */
-    public function test_update_rule() {
+    public function test_update_rule(): void {
         // Create a 'text' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
@@ -197,7 +197,7 @@ class rules_test extends \advanced_testcase {
      * It is adopted from block_html and does not have a coverage tag there either. Thus, we set coversNothing.
      * @coversNothing
      */
-    public function test_delete_rule() {
+    public function test_delete_rule(): void {
         // Create a 'text' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
@@ -235,7 +235,7 @@ class rules_test extends \advanced_testcase {
      * It is adopted from block_html and does not have a coverage tag there either. Thus, we set coversNothing.
      * @coversNothing
      */
-    public function test_update_from_form_data() {
+    public function test_update_from_form_data(): void {
         // Create a 'text' rule + reload.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
@@ -329,7 +329,7 @@ class rules_test extends \advanced_testcase {
      * It is adopted from block_html and does not have a coverage tag there either. Thus, we set coversNothing.
      * @coversNothing
      */
-    public function test_match_checkbox() {
+    public function test_match_checkbox(): void {
         global $DB;
         // Set up 3 users:
         // user1 has profile field unchecked.
@@ -373,7 +373,7 @@ class rules_test extends \advanced_testcase {
      * It is adopted from block_html and does not have a coverage tag there either. Thus, we set coversNothing.
      * @coversNothing
      */
-    public function test_match_menu() {
+    public function test_match_menu(): void {
         global $DB;
         // Set up 3 users:
         // user1 has profile field 'Opt 1'.
@@ -417,7 +417,7 @@ class rules_test extends \advanced_testcase {
      * It is adopted from block_html and does not have a coverage tag there either. Thus, we set coversNothing.
      * @coversNothing
      */
-    public function test_match_text() {
+    public function test_match_text(): void {
         global $DB;
         // Set up 3 users:
         // user1 has profile field 'Testing ABC'.
@@ -503,7 +503,7 @@ class rules_test extends \advanced_testcase {
      * It is adopted from block_html and does not have a coverage tag there either. Thus, we set coversNothing.
      * @coversNothing
      */
-    public function test_and_rules() {
+    public function test_and_rules(): void {
         global $DB;
 
         // Set up a user with 'menufield' set to 'Opt 1', 'checkboxfield' set to 'No', 'textfield' set to 'Fred'.
