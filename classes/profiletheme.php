@@ -53,7 +53,7 @@ class profiletheme extends profilefields {
      * Called after the user has logged in, to apply any mappings and set the session theme
      * @param \core\event\base|null $event
      */
-    public static function set_theme_from_profile(\core\event\base $event = null) {
+    public static function set_theme_from_profile(?\core\event\base $event = null) {
         global $USER, $SESSION;
 
         if ($event && $event->userid != $USER->id) {
@@ -69,7 +69,7 @@ class profiletheme extends profilefields {
      * Called after the user has logged in as another user, to apply any mappings and set the session theme
      * @param \core\event\base|null $event
      */
-    public static function set_theme_from_profile_loginas(\core\event\base $event = null) {
+    public static function set_theme_from_profile_loginas(?\core\event\base $event = null) {
         global $USER, $SESSION;
 
         if ($event && $event->relateduserid != $USER->id) {
