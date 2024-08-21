@@ -4,7 +4,7 @@ moodle-local_profiletheme
 Changes
 -------
 
-### Unreleased
+### v4.1-r4
 
 * 2024-08-20 - Remove duplicate header on overview page.
 
