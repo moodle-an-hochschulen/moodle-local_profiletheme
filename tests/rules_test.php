@@ -66,6 +66,9 @@ final class rules_test extends \advanced_testcase {
         }
 
         $this->resetAfterTest();
+
+        // Call parent setup.
+        parent::setUp();
     }
 
     /**
