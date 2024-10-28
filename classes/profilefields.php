@@ -25,7 +25,6 @@
 namespace local_profiletheme;
 
 use moodleform;
-use single_select;
 
 /**
  * Class profilefields
@@ -262,7 +261,8 @@ abstract class profilefields {
         global $OUTPUT, $PAGE;
         $opts = $this->get_possible_fields();
         $opts = array_map('format_string', $opts);
-        $select = new single_select($PAGE->url, 'add', $opts, '', [null => get_string('addrule', 'local_profiletheme')]);
+        $select = new \core\output\single_select($PAGE->url, 'add', $opts, '',
+                [null => get_string('addrule', 'local_profiletheme')]);
         $select->attributes['id'] = 'local_profiletheme_add';
         return $OUTPUT->render($select);
     }
