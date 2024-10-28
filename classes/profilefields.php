@@ -238,7 +238,7 @@ abstract class profilefields {
 
     /**
      * Generate tabs for the display
-     * @return \tabtree
+     * @return \core\output\tabtree
      */
     protected function get_tabs() {
         $tabs = [];
@@ -248,7 +248,7 @@ abstract class profilefields {
                                  get_string('addrules', 'local_profiletheme'));
         $tabs = array_merge($tabs, $this->extra_tabs());
 
-        $tabtree = new \tabtree($tabs, $this->action);
+        $tabtree = new \core\output\tabtree($tabs, $this->action);
 
         return $tabtree;
     }
