@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    $settingspage = new admin_externalpage('local_profiletheme', new lang_string('pluginname', 'local_profiletheme'),
+    $settingspage = new admin_externalpage('local_profiletheme', new \core\lang_string('pluginname', 'local_profiletheme'),
                                            new moodle_url('/local/profiletheme/index.php'), 'moodle/site:config');
     $ADMIN->add('accounts', $settingspage);
 }
