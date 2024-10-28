@@ -117,12 +117,12 @@ class field_text extends field_base {
             $matchopts[$matchtype] = get_string($strmatchtype, 'local_profiletheme');
         }
         $type = $mform->createElement('select', "matchtype[$id]", get_string('matchtype', 'local_profiletheme'), $matchopts,
-                ['class' => 'pr-2']);
+                ['class' => 'pe-2']);
         $mform->setType("matchtype[$id]", PARAM_TEXT);
         $mform->setDefault("matchtype[$id]", $this->matchtype);
 
         $match = $mform->createElement('text', "matchvalue[$id]", get_string('matchvalue', 'local_profiletheme'),
-                ['class' => 'pr-2']);
+                ['class' => 'pe-2']);
         $mform->setType("matchvalue[$id]", PARAM_TEXT);
         $mform->setDefault("matchvalue[$id]", $this->matchvalue);
         $mform->disabledIf("matchvalue[$id]", "matchtype[$id]", 'eq', self::MATCH_ISDEFINED);
