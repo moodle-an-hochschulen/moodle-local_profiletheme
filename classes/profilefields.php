@@ -63,14 +63,14 @@ abstract class profilefields {
             $this->action = 'view';
         }
         if (!PHPUNIT_TEST && !CLI_SCRIPT) {
-            $url = new \moodle_url($PAGE->url, ['action' => $this->action]);
+            $url = new \core\url($PAGE->url, ['action' => $this->action]);
             $PAGE->set_url($url);
         }
     }
 
     /**
      * Get the URL of the main page for this plugin.
-     * @return \moodle_url
+     * @return \core\url
      */
     protected function get_index_url() {
         global $PAGE;
@@ -137,7 +137,7 @@ abstract class profilefields {
                 $this->apply_all_rules();
             }
             // Always return to the 'view rules' tab when a rule has been saved successfully.
-            redirect(new \moodle_url($PAGE->url, ['action' => 'view']));
+            redirect(new \core\url($PAGE->url, ['action' => 'view']));
         }
     }
 
@@ -212,7 +212,7 @@ abstract class profilefields {
         }
 
         if (!$this->get_possible_fields()) {
-            $profilefieldsurl = new \moodle_url('/user/profile/index.php');
+            $profilefieldsurl = new \core\url('/user/profile/index.php');
             $link = \html_writer::link($profilefieldsurl, get_string('profilefields', 'core_admin'));
             $notification = new \core\output\notification(get_string('nofields', 'local_profiletheme', $link),
                                                           \core\output\notification::NOTIFY_ERROR);
@@ -242,9 +242,9 @@ abstract class profilefields {
      */
     protected function get_tabs() {
         $tabs = [];
-        $tabs[] = new \core\output\tabobject('view', new \moodle_url($this->get_index_url(), ['action' => 'view']),
+        $tabs[] = new \core\output\tabobject('view', new \core\url($this->get_index_url(), ['action' => 'view']),
                                  get_string('viewrules', 'local_profiletheme'));
-        $tabs[] = new \core\output\tabobject('add', new \moodle_url($this->get_index_url(), ['action' => 'add']),
+        $tabs[] = new \core\output\tabobject('add', new \core\url($this->get_index_url(), ['action' => 'add']),
                                  get_string('addrules', 'local_profiletheme'));
         $tabs = array_merge($tabs, $this->extra_tabs());
 
