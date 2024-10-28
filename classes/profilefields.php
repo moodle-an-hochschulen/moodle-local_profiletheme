@@ -230,7 +230,7 @@ abstract class profilefields {
 
     /**
      * Allow subclasses to define extra tabs to be included at the top of the page.
-     * @return \tabobject[]
+     * @return \core\output\tabobject[]
      */
     protected function extra_tabs() {
         return [];
@@ -242,9 +242,9 @@ abstract class profilefields {
      */
     protected function get_tabs() {
         $tabs = [];
-        $tabs[] = new \tabobject('view', new \moodle_url($this->get_index_url(), ['action' => 'view']),
+        $tabs[] = new \core\output\tabobject('view', new \moodle_url($this->get_index_url(), ['action' => 'view']),
                                  get_string('viewrules', 'local_profiletheme'));
-        $tabs[] = new \tabobject('add', new \moodle_url($this->get_index_url(), ['action' => 'add']),
+        $tabs[] = new \core\output\tabobject('add', new \moodle_url($this->get_index_url(), ['action' => 'add']),
                                  get_string('addrules', 'local_profiletheme'));
         $tabs = array_merge($tabs, $this->extra_tabs());
 
