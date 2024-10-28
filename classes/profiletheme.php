@@ -24,7 +24,6 @@
 
 namespace local_profiletheme;
 
-use core_component;
 use Exception;
 use html_writer;
 use theme_config;
@@ -87,7 +86,7 @@ class profiletheme extends profilefields {
      */
     protected static function load_possible_values() {
         $themes = [];
-        foreach (core_component::get_plugin_list('theme') as $themename => $unused) {
+        foreach (\core\component::get_plugin_list('theme') as $themename => $unused) {
             try {
                 $theme = theme_config::load($themename);
             } catch (Exception $e) {
