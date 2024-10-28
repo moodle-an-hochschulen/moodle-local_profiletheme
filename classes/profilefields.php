@@ -25,6 +25,7 @@
 namespace local_profiletheme;
 
 use moodleform;
+use core\output\html_writer;
 
 /**
  * Class profilefields
@@ -204,16 +205,16 @@ abstract class profilefields {
         $out .= $OUTPUT->render($tabs);
 
         if ($this->action == 'view') {
-            $out .= \html_writer::tag('div', get_string('viewintro', 'local_profiletheme'),
+            $out .= html_writer::tag('div', get_string('viewintro', 'local_profiletheme'),
                                      ['id' => 'intro', 'class' => 'box generalbox']);
         } else if ($this->action == 'add') {
-            $out .= \html_writer::tag('div', get_string('addintro', 'local_profiletheme'),
+            $out .= html_writer::tag('div', get_string('addintro', 'local_profiletheme'),
                                      ['id' => 'intro', 'class' => 'box generalbox']);
         }
 
         if (!$this->get_possible_fields()) {
             $profilefieldsurl = new \core\url('/user/profile/index.php');
-            $link = \html_writer::link($profilefieldsurl, get_string('profilefields', 'core_admin'));
+            $link = html_writer::link($profilefieldsurl, get_string('profilefields', 'core_admin'));
             $notification = new \core\output\notification(get_string('nofields', 'local_profiletheme', $link),
                                                           \core\output\notification::NOTIFY_ERROR);
             $notification->set_show_closebutton(false);

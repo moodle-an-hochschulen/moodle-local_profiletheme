@@ -24,7 +24,7 @@
 
 namespace local_profiletheme;
 
-use html_writer;
+use core\output\html_writer;
 use MoodleQuickForm;
 use stdClass;
 

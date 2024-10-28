@@ -25,7 +25,6 @@
 namespace local_profiletheme;
 
 use Exception;
-use html_writer;
 
 /**
  * Class profiletheme
