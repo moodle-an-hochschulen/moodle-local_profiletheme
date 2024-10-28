@@ -26,7 +26,6 @@ namespace local_profiletheme;
 
 use Exception;
 use html_writer;
-use theme_config;
 
 /**
  * Class profiletheme
@@ -88,7 +87,7 @@ class profiletheme extends profilefields {
         $themes = [];
         foreach (\core\component::get_plugin_list('theme') as $themename => $unused) {
             try {
-                $theme = theme_config::load($themename);
+                $theme = \core\output\theme_config::load($themename);
             } catch (Exception $e) {
                 continue; // Bad theme - skip it.
             }
