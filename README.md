@@ -1,7 +1,7 @@
 moodle-local_profiletheme
 =========================
 
-[![Moodle Plugin CI](https://github.com/moodle-an-hochschulen/moodle-local_profiletheme/workflows/Moodle%20Plugin%20CI/badge.svg?branch=MOODLE_404_STABLE)](https://github.com/moodle-an-hochschulen/moodle-local_profiletheme/actions?query=workflow%3A%22Moodle+Plugin+CI%22+branch%3AMOODLE_404_STABLE)
+[![Moodle Plugin CI](https://github.com/moodle-an-hochschulen/moodle-local_profiletheme/actions/workflows/moodle-plugin-ci.yml/badge.svg?branch=MOODLE_404_STABLE)](https://github.com/moodle-an-hochschulen/moodle-local_profiletheme/actions?query=workflow%3A%22Moodle+Plugin+CI%22+branch%3AMOODLE_404_STABLE)
 
 Moodle plugin which lets admins deliver a certain theme based on a user's custom profile field
 
