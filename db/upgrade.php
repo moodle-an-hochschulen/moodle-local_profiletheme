@@ -45,7 +45,6 @@ function xmldb_local_profiletheme_upgrade($oldversion = 0) {
     }
 
     if ($oldversion < 2017042700) {
-
         // Define field andnextrule to be added to local_profilecohort.
         $table = new xmldb_table('local_profiletheme');
         $field = new xmldb_field('andnextrule', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'sortorder');

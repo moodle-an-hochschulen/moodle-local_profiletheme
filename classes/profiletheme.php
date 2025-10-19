@@ -97,7 +97,7 @@ class profiletheme extends profilefields {
                 continue; // Hidden theme - skip it.
             }
 
-            $themes[$themename] = get_string('pluginname', 'theme_'.$themename);
+            $themes[$themename] = get_string('pluginname', 'theme_' . $themename);
         }
         return $themes;
     }
