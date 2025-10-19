@@ -26,13 +26,14 @@ namespace local_profiletheme;
 
 defined('MOODLE_INTERNAL') || die();
 
+// phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+
 /**
  * Class local_profiletheme_testcase
  * @copyright 2016 Davo Smith, Synergy Learning UK on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class rules_test extends \advanced_testcase {
-
     /** @var int[] mapping user profile field shortname => field id */
     protected $fieldids = [];
     /** The name of the table storing the rule definitions. */
@@ -90,7 +91,7 @@ final class rules_test extends \advanced_testcase {
         // Load all rules and check the data matches.
         $rules = test_profiletheme::test_load_rules();
         $this->assertCount(1, $rules);
-        list($loadedrule) = $rules;
+        [$loadedrule] = $rules;
         $this->assertEquals($ruledata->fieldid, $loadedrule->fieldid);
         $this->assertEquals($ruledata->matchvalue, $loadedrule->matchvalue);
         $this->assertEquals($ruledata->value, $loadedrule->value);
@@ -106,7 +107,7 @@ final class rules_test extends \advanced_testcase {
         // Load all rules and check the data matches.
         $rules = test_profiletheme::test_load_rules();
         $this->assertCount(2, $rules);
-        list(, $loadedrule) = $rules;
+        [, $loadedrule] = $rules;
         $this->assertEquals($ruledata->fieldid, $loadedrule->fieldid);
         $this->assertEquals($ruledata->matchvalue, $loadedrule->matchvalue);
         $this->assertEquals($ruledata->value, $loadedrule->value);
@@ -123,7 +124,7 @@ final class rules_test extends \advanced_testcase {
         // Load all rules and check the data matches.
         $rules = test_profiletheme::test_load_rules();
         $this->assertCount(3, $rules);
-        list(, , $loadedrule) = $rules;
+        [, , $loadedrule] = $rules;
         $this->assertEquals($ruledata->fieldid, $loadedrule->fieldid);
         $this->assertEquals($ruledata->matchvalue, $loadedrule->matchvalue);
         $this->assertEquals($ruledata->matchtype, $loadedrule->matchtype);
@@ -141,7 +142,7 @@ final class rules_test extends \advanced_testcase {
         // Load all rules and check the data matches.
         $rules = test_profiletheme::test_load_rules();
         $this->assertCount(4, $rules);
-        list(, , , $loadedrule) = $rules;
+        [, , , $loadedrule] = $rules;
         $this->assertEquals($ruledata->fieldid, $loadedrule->fieldid);
         $this->assertEquals($ruledata->matchvalue, $loadedrule->matchvalue);
         $this->assertEquals($ruledata->matchtype, $loadedrule->matchtype);
@@ -173,7 +174,7 @@ final class rules_test extends \advanced_testcase {
         $rule->save(self::TABLENAME);
 
         // Reload the 'text' rule, change it, then save it.
-        list($loadedrule, ) = test_profiletheme::test_load_rules();
+        [$loadedrule, ] = test_profiletheme::test_load_rules();
         $loadedrule->matchtype = field_text::MATCH_CONTAINS;
         $loadedrule->matchvalue = 'testing2';
         $loadedrule->value = 'boost';
@@ -182,7 +183,7 @@ final class rules_test extends \advanced_testcase {
         // Check the 'text' rule has been updated and the 'menu' rule is unchanged.
         $rules = test_profiletheme::test_load_rules();
         $this->assertCount(2, $rules);
-        list($changedrule, $unchangedrule) = $rules;
+        [$changedrule, $unchangedrule] = $rules;
         $this->assertEquals($ruledata->fieldid, $changedrule->fieldid);
         $this->assertEquals('testing2', $changedrule->matchvalue);
         $this->assertEquals(field_text::MATCH_CONTAINS, $changedrule->matchtype);
@@ -218,14 +219,13 @@ final class rules_test extends \advanced_testcase {
         $rule->save(self::TABLENAME);
 
         // Reload the rules and delete the first rule.
-        /** @var field_base $rule */
-        list($rule, ) = test_profiletheme::test_load_rules();
+        [$rule, ] = test_profiletheme::test_load_rules();
         $rule->delete(self::TABLENAME);
 
         // Reload the rules and check that only the second remains.
         $rules = test_profiletheme::test_load_rules();
         $this->assertCount(1, $rules);
-        list($rule2) = $rules;
+        [$rule2] = $rules;
         $this->assertEquals($ruledata2->fieldid, $rule2->fieldid);
         $this->assertEquals($ruledata2->matchvalue, $rule2->matchvalue);
         $this->assertEquals($ruledata2->value, $rule2->value);
@@ -252,7 +252,7 @@ final class rules_test extends \advanced_testcase {
             'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
         ];
         $rule2 = field_base::make_instance($ruledata2);
-        list($rule1) = test_profiletheme::test_load_rules();
+        [$rule1] = test_profiletheme::test_load_rules();
         /** @var field_base[] $rules */
         $rules = [$rule1, $rule2];
 
@@ -268,7 +268,7 @@ final class rules_test extends \advanced_testcase {
         }
         $rules = test_profiletheme::test_load_rules();
         $this->assertCount(2, $rules);
-        list($rule1, $rule2) = $rules;
+        [$rule1, $rule2] = $rules;
         // Rule1 should be unchanged.
         $this->assertEquals($ruledata->fieldid, $rule1->fieldid);
         $this->assertEquals($ruledata->matchvalue, $rule1->matchvalue);
@@ -292,7 +292,7 @@ final class rules_test extends \advanced_testcase {
         }
         $rules = test_profiletheme::test_load_rules();
         $this->assertCount(2, $rules);
-        list($rule1, $rule2) = $rules;
+        [$rule1, $rule2] = $rules;
         // Rule1 should be updated.
         $this->assertEquals($ruledata->fieldid, $rule1->fieldid);
         $this->assertEquals(field_text::MATCH_CONTAINS, $rule1->matchtype);
@@ -318,7 +318,7 @@ final class rules_test extends \advanced_testcase {
 
         // Only 1 rule should remain.
         $this->assertCount(1, $rules);
-        list($rule2) = $rules;
+        [$rule2] = $rules;
         // Rule2 should be unchanged.
         $this->assertEquals($this->fieldids['menufield'], $rule2->fieldid);
         $this->assertEquals('Opt 2', $rule2->matchvalue);
