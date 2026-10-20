@@ -83,7 +83,7 @@ final class rules_test extends \advanced_testcase {
         // Create a 'checkbox' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
-            'matchvalue' => 1, 'value' => 'classic',
+            'matchvalue' => 1, 'value' => 'boost_union',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -116,7 +116,7 @@ final class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'classic',
+            'matchvalue' => 'testing', 'value' => 'boost_union',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -161,7 +161,7 @@ final class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'classic',
+            'matchvalue' => 'testing', 'value' => 'boost_union',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -206,7 +206,7 @@ final class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'classic',
+            'matchvalue' => 'testing', 'value' => 'boost_union',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
@@ -243,7 +243,7 @@ final class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'testing', 'value' => 'classic',
+            'matchvalue' => 'testing', 'value' => 'boost_union',
         ];
         $rule1 = field_base::make_instance($ruledata);
         $rule1->save(self::TABLENAME);
@@ -349,14 +349,14 @@ final class rules_test extends \advanced_testcase {
         // Create a 'checkbox' rule.
         $ruledata = (object) [
             'fieldid' => $this->fieldids['checkboxfield'], 'datatype' => 'checkbox',
-            'matchvalue' => 1, 'value' => 'classic',
+            'matchvalue' => 1, 'value' => 'boost_union',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
 
         // Check the rule matches as expected.
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
 
         // Swap the rule to match unticked fields.
@@ -364,7 +364,7 @@ final class rules_test extends \advanced_testcase {
         $rule->save(self::TABLENAME);
 
         // Check the rule matches as expected.
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
     }
@@ -442,14 +442,14 @@ final class rules_test extends \advanced_testcase {
         $ruledata = (object) [
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
             'matchtype' => field_text::MATCH_EXACT,
-            'matchvalue' => 'Another test', 'value' => 'classic',
+            'matchvalue' => 'Another test', 'value' => 'boost_union',
         ];
         $rule = field_base::make_instance($ruledata);
         $rule->save(self::TABLENAME);
 
         // Check the rule matches as expected (user2).
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
 
@@ -457,7 +457,7 @@ final class rules_test extends \advanced_testcase {
         $rule->matchvalue = 'testing abc';
         $rule->save(self::TABLENAME);
         // Check the rule matches as expected (user1).
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
@@ -475,8 +475,8 @@ final class rules_test extends \advanced_testcase {
         $rule->matchtype = field_text::MATCH_CONTAINS;
         $rule->save(self::TABLENAME);
         // Check the rule matches as expected (user1 + user2).
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
 
@@ -487,14 +487,14 @@ final class rules_test extends \advanced_testcase {
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user1->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user4->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user4->id));
 
         // Swap the rule to match any non-empty value.
         $rule->matchtype = field_text::MATCH_NOTEMPTY;
         $rule->save(self::TABLENAME);
         // Check the rule matches as expected (user1 + user2).
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user1->id));
-        $this->assertEquals('classic', test_profiletheme::get_mapped_value($user2->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user1->id));
+        $this->assertEquals('boost_union', test_profiletheme::get_mapped_value($user2->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user3->id));
         $this->assertEquals(null, test_profiletheme::get_mapped_value($user4->id));
     }
@@ -560,10 +560,10 @@ final class rules_test extends \advanced_testcase {
         ];
         $rule3 = field_base::make_instance($ruledata3);
         $rule3->save(self::TABLENAME);
-        // As 'textfield' == 'Fred' => 'classic' - this rule should match on its own.
+        // As 'textfield' == 'Fred' => 'boost_union' - this rule should match on its own.
         $ruledata4 = (object)[
             'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
-            'matchvalue' => 'Fred', 'value' => 'classic', 'andnextrule' => 0,
+            'matchvalue' => 'Fred', 'value' => 'boost_union', 'andnextrule' => 0,
         ];
         $rule4 = field_base::make_instance($ruledata4);
         $rule4->save(self::TABLENAME);
@@ -573,15 +573,15 @@ final class rules_test extends \advanced_testcase {
         $user2theme = profiletheme::get_mapped_value($user2->id);
         $user3theme = profiletheme::get_mapped_value($user3->id);
 
-        // User1 should match rule 1, 2 + 3 ('boost') and rule 4 ('classic') - but not 'boost' (from rules 2 + 3).
+        // User1 should match rule 1, 2 + 3 ('boost') and rule 4 ('boost_union') - but not 'boost' (from rules 2 + 3).
         // Only 'boost' is returned, as the first matching rule wins.
         $this->assertEquals('boost', $user1theme);
 
-        // User2 does not match rule 3 (so, not 'boost') or rule 4 (so, not 'classic').
+        // User2 does not match rule 3 (so, not 'boost') or rule 4 (so, not 'boost_union').
         $this->assertEquals(false, $user2theme);
 
-        // User3 does not match rule 1 (so, not 'boost'), but does match rule 4 ('classic').
-        $this->assertEquals('classic', $user3theme);
+        // User3 does not match rule 1 (so, not 'boost'), but does match rule 4 ('boost_union').
+        $this->assertEquals('boost_union', $user3theme);
     }
 }
 

@@ -25,13 +25,13 @@ Feature: Edit rules based on profile fields
       | Match value             | Yes   |
       | the user will get theme | Boost |
     And I set the following fields to these values:
-      | Match value             | No      |
-      | the user will get theme | Classic |
+      | Match value             | No          |
+      | the user will get theme | Boost Union |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
-      | Match value             | No      |
-      | the user will get theme | Classic |
+      | Match value             | No          |
+      | the user will get theme | Boost Union |
     And I set the field "Delete this rule" to "1"
     And I press "Save changes"
     And "Checkbox field" "text" should not exist in the "form.mform" "css_element"
@@ -49,13 +49,13 @@ Feature: Edit rules based on profile fields
       | Match value             | Opt2  |
       | the user will get theme | Boost |
     And I set the following fields to these values:
-      | Match value             | Opt3    |
-      | the user will get theme | Classic |
+      | Match value             | Opt3        |
+      | the user will get theme | Boost Union |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
-      | Match value             | Opt3    |
-      | the user will get theme | Classic |
+      | Match value             | Opt3        |
+      | the user will get theme | Boost Union |
     And I set the field "Delete this rule" to "1"
     And I press "Save changes"
     And "Menu field" "text" should not exist in the "form.mform" "css_element"
@@ -77,13 +77,13 @@ Feature: Edit rules based on profile fields
     And I set the following fields to these values:
       | Match value             | testing again |
       | Match type              | Contains      |
-      | the user will get theme | Classic       |
+      | the user will get theme | Boost Union   |
     And I press "Save changes"
     And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
     And the following fields match these values:
       | Match value             | testing again |
       | Match type              | Contains      |
-      | the user will get theme | Classic       |
+      | the user will get theme | Boost Union   |
     And I set the field "Delete this rule" to "1"
     And I press "Save changes"
     And "Text field" "text" should not exist in the "form.mform" "css_element"

@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2026-10-19 - Upgrade: Use Boost Union as second theme for automated testing after Classic was removed from core.
 * 2026-10-05 - Prepare compatibility for Moodle 5.3.
 
 ### v5.2-r2
