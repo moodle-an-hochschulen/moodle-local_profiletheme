@@ -4,7 +4,7 @@ moodle-local_profiletheme
 Changes
 -------
 
-### Unreleased
+### v5.3-r1
 
 * 2026-10-19 - Upgrade: Use Boost Union as second theme for automated testing after Classic was removed from core.
 * 2026-10-05 - Prepare compatibility for Moodle 5.3.
