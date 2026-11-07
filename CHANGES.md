@@ -4,6 +4,10 @@ moodle-local_profiletheme
 Changes
 -------
 
+### Unreleased
+
+* 2026-10-31 - Improvement: Close database recordsets explicitly after use.
+
 ### v5.3-r1
 
 * 2026-10-19 - Upgrade: Use Boost Union as second theme for automated testing after Classic was removed from core.
