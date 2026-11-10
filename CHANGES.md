@@ -4,7 +4,7 @@ moodle-local_profiletheme
 Changes
 -------
 
-### Unreleased
+### v4.5-r4
 
 * 2026-10-31 - Improvement: Close database recordsets explicitly after use.
 
