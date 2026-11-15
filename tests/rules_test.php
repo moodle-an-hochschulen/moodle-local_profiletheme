@@ -643,10 +643,15 @@ final class rules_test extends \advanced_testcase {
         // The rules with the invalid theme are skipped and the later matching rule wins.
         $this->assertEquals('classic', profiletheme::get_mapped_value($user1->id));
 
-        // The rules with the invalid theme are still not offered for editing, but they are not deleted either.
+        // The rules with the invalid theme are still offered for editing,
+        // so that the rule editing form shows the same rulesets which are evaluated during login.
         $rules = test_profiletheme::test_load_rules();
-        $this->assertCount(2, $rules);
-        $this->assertEquals(4, $DB->count_records(self::TABLENAME));
+        $this->assertCount(4, $rules);
+        $this->assertEquals('themewhichdoesnotexist', $rules[0]->value);
+        $this->assertEquals('themewhichdoesnotexist', $rules[1]->value);
+        $this->assertTrue($rules[1]->should_and_next_field());
+        $this->assertEquals('boost', $rules[2]->value);
+        $this->assertEquals('classic', $rules[3]->value);
     }
 }
 
