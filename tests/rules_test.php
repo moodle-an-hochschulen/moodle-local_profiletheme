@@ -583,6 +583,71 @@ final class rules_test extends \advanced_testcase {
         // User3 does not match rule 1 (so, not 'boost'), but does match rule 4 ('boost_union').
         $this->assertEquals('boost_union', $user3theme);
     }
+
+    /**
+     * Test that rules which map onto an invalid theme are skipped, so that a later matching rule wins.
+     *
+     * @covers \local_profiletheme\profilefields::get_mapped_value
+     * @covers \local_profiletheme\profiletheme::is_valid_value
+     */
+    public function test_invalid_theme_rules(): void {
+        global $DB;
+
+        // Set up a user with 'menufield' set to 'Opt 1' and 'textfield' set to 'Fred'.
+        $user1 = $this->getDataGenerator()->create_user();
+        $ins = (object)['userid' => $user1->id, 'fieldid' => $this->fieldids['menufield'], 'data' => 'Opt 1'];
+        $DB->insert_record('user_info_data', $ins);
+        $ins = (object)['userid' => $user1->id, 'fieldid' => $this->fieldids['textfield'], 'data' => 'Fred'];
+        $DB->insert_record('user_info_data', $ins);
+
+        // As 'textfield' == 'Fred' => a theme which is not installed (anymore).
+        $ruledata1 = (object)[
+            'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
+            'matchtype' => field_text::MATCH_EXACT,
+            'matchvalue' => 'Fred', 'value' => 'themewhichdoesnotexist',
+        ];
+        $rule1 = field_base::make_instance($ruledata1);
+        $rule1->save(self::TABLENAME);
+
+        // The user only matches the rule with the invalid theme, so no theme is mapped.
+        $this->assertNull(profiletheme::get_mapped_value($user1->id));
+
+        // As 'menufield' == 'Opt 1' => a theme which is not installed (anymore) AND next rule must match.
+        $ruledata2 = (object)[
+            'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
+            'matchvalue' => 'Opt 1', 'value' => 'themewhichdoesnotexist', 'andnextrule' => 1,
+        ];
+        $rule2 = field_base::make_instance($ruledata2);
+        $rule2->save(self::TABLENAME);
+        // As 'textfield' == 'Fred' => 'boost' - this is the final rule for this ruleset.
+        // Its theme is never used, as the theme of the first rule of the ruleset counts.
+        $ruledata3 = (object)[
+            'fieldid' => $this->fieldids['textfield'], 'datatype' => 'text',
+            'matchtype' => field_text::MATCH_EXACT,
+            'matchvalue' => 'Fred', 'value' => 'boost', 'andnextrule' => 0,
+        ];
+        $rule3 = field_base::make_instance($ruledata3);
+        $rule3->save(self::TABLENAME);
+
+        // The user matches rule 1 and the ruleset of rule 2 + 3, but both map onto the invalid theme.
+        $this->assertNull(profiletheme::get_mapped_value($user1->id));
+
+        // As 'menufield' == 'Opt 1' => 'boost_union' - this rule should match on its own.
+        $ruledata4 = (object)[
+            'fieldid' => $this->fieldids['menufield'], 'datatype' => 'menu',
+            'matchvalue' => 'Opt 1', 'value' => 'boost_union',
+        ];
+        $rule4 = field_base::make_instance($ruledata4);
+        $rule4->save(self::TABLENAME);
+
+        // The rules with the invalid theme are skipped and the later matching rule wins.
+        $this->assertEquals('boost_union', profiletheme::get_mapped_value($user1->id));
+
+        // The rules with the invalid theme are still not offered for editing, but they are not deleted either.
+        $rules = test_profiletheme::test_load_rules();
+        $this->assertCount(2, $rules);
+        $this->assertEquals(4, $DB->count_records(self::TABLENAME));
+    }
 }
 
 /**

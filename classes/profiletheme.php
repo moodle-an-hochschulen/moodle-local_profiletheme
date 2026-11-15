@@ -85,20 +85,49 @@ class profiletheme extends profilefields {
     protected static function load_possible_values() {
         $themes = [];
         foreach (\core\component::get_plugin_list('theme') as $themename => $unused) {
-            try {
-                $theme = \core\output\theme_config::load($themename);
-            } catch (Exception $e) {
-                continue; // Bad theme - skip it.
-            }
-            if ($themename !== $theme->name) {
-                continue; // Broken theme - skip it.
-            }
-            if ($theme->hidefromselector) {
-                continue; // Hidden theme - skip it.
+            if (!self::is_usable_theme($themename)) {
+                continue;
             }
 
             $themes[$themename] = get_string('pluginname', 'theme_' . $themename);
         }
         return $themes;
+    }
+
+    /**
+     * Check if the given theme is (still) a theme that fields can be mapped onto.
+     * This only loads the config of the given theme instead of the configs of all installed themes,
+     * as it is called during each login.
+     *
+     * @param string $value the name of the theme
+     * @return bool
+     */
+    protected static function is_valid_value($value) {
+        // Check that the theme is installed first, as loading a missing theme would fall back to another theme.
+        if (!array_key_exists($value, \core\component::get_plugin_list('theme'))) {
+            return false;
+        }
+        return self::is_usable_theme($value);
+    }
+
+    /**
+     * Check if the given installed theme can be loaded and is not hidden from the theme selector.
+     *
+     * @param string $themename the name of an installed theme
+     * @return bool
+     */
+    protected static function is_usable_theme($themename) {
+        try {
+            $theme = \core\output\theme_config::load($themename);
+        } catch (Exception $e) {
+            return false; // Bad theme.
+        }
+        if ($themename !== $theme->name) {
+            return false; // Broken theme.
+        }
+        if ($theme->hidefromselector) {
+            return false; // Hidden theme.
+        }
+        return true;
     }
 }
