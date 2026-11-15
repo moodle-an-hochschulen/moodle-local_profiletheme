@@ -87,3 +87,27 @@ Feature: Edit rules based on profile fields
     And I set the field "Delete this rule" to "1"
     And I press "Save changes"
     And "Text field" "text" should not exist in the "form.mform" "css_element"
+
+  Scenario: Show, keep and replace a rule which maps onto a theme that is not available
+    Given the following rules exist (local_profiletheme):
+      | field     | matchtype | matchvalue | value            |
+      | textfield | exact     | testing    | themenotexisting |
+    When I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
+    Then "Text field" "text" should exist in the ".localprofile-fieldwrapper" "css_element"
+    And the following fields match these values:
+      | Match value             | testing                          |
+      | Match type              | Matches                          |
+      | the user will get theme | themenotexisting (not available) |
+    And I set the field "Match value" to "testing again"
+    And I press "Save changes"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
+    And the following fields match these values:
+      | Match value             | testing again                    |
+      | the user will get theme | themenotexisting (not available) |
+    And I set the field "the user will get theme" to "Boost"
+    And I press "Save changes"
+    And I navigate to "Users > Accounts > Profile field based theme delivery" in site administration
+    And the following fields match these values:
+      | Match value             | testing again |
+      | the user will get theme | Boost         |
+    And "themenotexisting" "text" should not exist in the "form.mform" "css_element"

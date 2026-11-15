@@ -83,4 +83,47 @@ class behat_local_profiletheme extends behat_base {
             $DB->insert_record('user_info_field', (object) $ins);
         }
     }
+
+    /**
+     * Create the rules requested directly in the database.
+     * This allows to create rules which can't be created in the rule editing form,
+     * for example rules which map onto a theme that is not available (anymore).
+     * @Given /^the following rules exist \(local_profiletheme\):$/
+     * @param TableNode $table
+     * @throws Exception
+     */
+    public function the_following_rules_exist(TableNode $table) {
+        global $DB;
+
+        $required = [
+            'field',
+            'value',
+        ];
+        $optional = [
+            'matchtype' => null,
+            'matchvalue' => null,
+            'andnextrule' => 0,
+        ];
+
+        // Create each rule, appended to the end of the list of existing rules.
+        $sortorder = intval($DB->get_field('local_profiletheme', 'MAX(sortorder)', [])) + 1;
+        foreach ($table->getHash() as $row) {
+            foreach ($required as $reqname) {
+                if (!isset($row[$reqname])) {
+                    throw new Exception('Rules require the field ' . $reqname . ' to be set');
+                }
+            }
+            foreach ($row as $fieldname => $value) {
+                if (!in_array($fieldname, $required) && !array_key_exists($fieldname, $optional)) {
+                    throw new Exception('Invalid field ' . $fieldname . ' in rule');
+                }
+            }
+
+            $ins = array_merge($optional, $row);
+            $ins['fieldid'] = $DB->get_field('user_info_field', 'id', ['shortname' => $row['field']], MUST_EXIST);
+            $ins['sortorder'] = $sortorder++;
+            unset($ins['field']);
+            $DB->insert_record('local_profiletheme', (object) $ins);
+        }
+    }
 }
