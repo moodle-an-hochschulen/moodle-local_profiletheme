@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2026-11-15 - Documentation: Document in the README that the plugin has no effect if `$CFG->themeorder` is customized without the session theme.
 * 2026-11-14 - Improvement: Validate the mapped theme lazily during login instead of loading the configs of all installed themes.\
                Please note: This changes how rules which map onto a theme that is not available (anymore) are handled within sets of AND-combined rules. Up to now, such a rule was removed before the rules were evaluated, which broke up the set and let the remaining rules match in an unintended way. From now on, the set is kept together and is skipped as a whole if the theme of its first rule is not available. If you have rules which map onto themes that have been uninstalled or hidden, please review them.
 
