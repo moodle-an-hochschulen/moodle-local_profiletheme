@@ -4,7 +4,7 @@ moodle-local_profiletheme
 Changes
 -------
 
-### Unreleased
+### v5.3-r3
 
 * 2026-11-15 - Improvement: Show rules which map onto a theme that is not available (anymore) in the rule editing form, flagged as not available, instead of hiding them. This way, the form shows exactly the rules which are evaluated during login and such rules can be reviewed, changed or deleted.
 * 2026-11-15 - Documentation: Document in the README that the plugin has no effect if `$CFG->themeorder` is customized without the session theme.
